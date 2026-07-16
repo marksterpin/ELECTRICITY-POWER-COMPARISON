@@ -1,0 +1,41 @@
+name: Harvest energy plans
+
+on:
+  schedule:
+    - cron: "0 17 * * *"    # 03:00 AEST daily (17:00 UTC)
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "Harvester args — e.g. --state=QLD  or  --limit=5  (blank = full national harvest)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write            # lets the commit step push data/
+
+env:
+  HARVEST_MINUTES: "100"     # stop fetching after this and write what we have
+  HARVEST_CONCURRENCY: "20"  # parallel detail fetches
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120       # hard ceiling; budget above finishes first
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run harvester
+        run: node harvest.js ${{ github.event.inputs.scope }}
+
+      - name: Commit updated feed
+        if: always()           # commit even a partial feed
+        run: |
+          git config user.name "energy-harvester"
+          git config user.email "actions@github.com"
+          git add data/
+          git commit -m "Update energy plan feed ($(date -u +%Y-%m-%dT%H:%M)Z)" || echo "No changes to commit"
+          git push || echo "Nothing to push"
