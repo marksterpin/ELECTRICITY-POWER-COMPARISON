@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Financial Energy Plan Comparison Tool</title>
+<style>
+  :root{
+    --navy:#0f2846; --navy2:#12335c; --ink:#0e1b2e; --line:#e2e8f0; --line2:#eef2f7;
+    --bg:#f5f7fa; --card:#ffffff; --muted:#5b6b80; --muted2:#8595a8;
+    --red:#d5313b; --red-d:#b0242d; --green:#137a4b; --green-bg:#e7f5ee;
+    --amber:#b7791f; --amber-bg:#fbf3e0; --blue:#1f6fb2; --blue-bg:#e8f2fb;
+    --shadow:0 1px 2px rgba(15,40,70,.06),0 6px 18px rgba(15,40,70,.06);
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.01em}
+  button{font-family:inherit;cursor:pointer}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Header */
+  header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 22px;
+    display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:40;box-shadow:0 2px 12px rgba(15,40,70,.18)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .spark{width:38px;height:38px;flex:0 0 38px;border-radius:9px;background:rgba(255,255,255,.08);
+    display:grid;place-items:center;border:1px solid rgba(255,255,255,.14)}
+  .spark svg{width:22px;height:22px}
+  header h1{font-size:18px;line-height:1.15}
+  header .sub{font-size:12px;color:#b9c8dc;margin-top:2px}
+  .hspace{flex:1}
+  .modechip{font-size:11px;padding:4px 9px;border-radius:20px;background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.16);color:#dbe6f3;white-space:nowrap}
+  .btn-menu{display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+    color:#fff;border-radius:8px;padding:8px 10px;font-size:13px}
+
+  /* Layout */
+  .wrap{display:flex;min-height:calc(100vh - 71px)}
+  aside{width:320px;flex:0 0 320px;background:var(--card);border-right:1px solid var(--line);
+    padding:18px;overflow-y:auto;height:calc(100vh - 71px);position:sticky;top:71px}
+  main{flex:1;padding:20px 22px;min-width:0}
+
+  .grp{margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--line2)}
+  .grp:last-child{border-bottom:none}
+  .grp h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:10px}
+  label.f{display:block;font-size:12px;color:var(--muted);margin:9px 0 4px;font-weight:600}
+  select,input[type=text],input[type=number]{width:100%;padding:9px 10px;border:1px solid var(--line);
+    border-radius:8px;font-size:14px;background:#fff;color:var(--ink)}
+  select:focus,input:focus{outline:none;border-color:var(--navy2);box-shadow:0 0 0 3px rgba(18,51,92,.1)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+  .chip{padding:6px 11px;border:1px solid var(--line);border-radius:20px;font-size:12.5px;background:#fff;color:var(--muted);font-weight:600}
+  .chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .hint{font-size:11px;color:var(--muted2);margin-top:4px;line-height:1.45}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);margin:8px 0;cursor:pointer}
+  .toggle input{width:16px;height:16px;accent-color:var(--navy2)}
+
+  .btn{width:100%;padding:11px;border:none;border-radius:9px;font-size:14px;font-weight:700;
+    background:var(--red);color:#fff;box-shadow:var(--shadow)}
+  .btn:hover{background:var(--red-d)}
+  .btn.sec{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .btn.sec:hover{background:var(--bg)}
+
+  /* Results header */
+  .rhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .rhead h2{font-size:20px}
+  .rhead .count{font-size:13px;color:var(--muted);background:#fff;border:1px solid var(--line);
+    padding:4px 10px;border-radius:20px;font-weight:600}
+  .sort{margin-left:auto;display:flex;gap:6px;align-items:center}
+  .sort select{width:auto;padding:7px 9px;font-size:13px}
+  .tools{display:flex;gap:8px}
+  .tbtn{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13px;
+    color:var(--navy);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .tbtn:hover{background:var(--bg)}
+  .tbtn svg{width:15px;height:15px}
+
+  /* Assumption banner */
+  .assume{background:var(--blue-bg);border:1px solid #c8e0f4;border-radius:10px;padding:11px 14px;
+    font-size:12.5px;color:#274b66;margin-bottom:16px;display:flex;gap:9px}
+  .assume b{color:var(--navy)}
+  .assume svg{width:16px;height:16px;flex:0 0 16px;margin-top:1px}
+
+  /* Plan card */
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);position:relative;transition:border-color .15s}
+  .plan:hover{border-color:#c6d2e0}
+  .plan.best{border-color:var(--green);box-shadow:0 0 0 1px var(--green),var(--shadow)}
+  .rank{position:absolute;top:-9px;left:16px;background:var(--navy);color:#fff;font-size:11px;font-weight:700;
+    padding:3px 9px;border-radius:20px;letter-spacing:.03em}
+  .plan.best .rank{background:var(--green)}
+  .ptop{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+  .pleft{min-width:0;flex:1}
+  .retailer{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+  .pname{font-size:16px;font-weight:700;color:var(--ink);line-height:1.25}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .badge{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
+  .b-green{background:var(--green-bg);color:var(--green)}
+  .b-amber{background:var(--amber-bg);color:var(--amber)}
+  .b-blue{background:var(--blue-bg);color:var(--blue)}
+  .b-grey{background:#eef1f5;color:var(--muted)}
+  .pcost{text-align:right;flex:0 0 auto}
+  .pcost .big{font-size:26px;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1}
+  .pcost .per{font-size:11px;color:var(--muted);margin-top:3px}
+  .pcost .qtr{font-size:12px;color:var(--muted);margin-top:5px}
+  .pcost .cond{font-size:11px;color:var(--green);font-weight:600;margin-top:3px}
+
+  .pbreak{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)}
+  .bk{font-size:12px}
+  .bk .l{color:var(--muted2);font-size:11px}
+  .bk .v{color:var(--ink);font-weight:700;font-size:13px}
+  .pactions{display:flex;gap:8px;margin-top:12px;align-items:center}
+  .lnk{font-size:12.5px;color:var(--blue);font-weight:600;background:none;border:none;padding:0}
+  .cmp{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);font-weight:600}
+  .cmp input{width:16px;height:16px;accent-color:var(--navy2)}
+
+  .detail{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);display:none;font-size:13px}
+  .detail.open{display:block}
+  .drow{display:grid;grid-template-columns:150px 1fr;gap:8px;padding:5px 0;border-bottom:1px solid var(--line2)}
+  .drow .dk{color:var(--muted);font-size:12px}
+  .drow .dv{color:var(--ink)}
+  .tou-tbl{width:100%;border-collapse:collapse;margin-top:6px;font-size:12.5px}
+  .tou-tbl th,.tou-tbl td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line2)}
+  .tou-tbl th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase}
+
+  .empty{text-align:center;padding:60px 20px;color:var(--muted)}
+  .empty svg{width:44px;height:44px;opacity:.4;margin-bottom:12px}
+
+  /* Modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(14,27,46,.55);z-index:60;display:none;
+    align-items:center;justify-content:center;padding:20px}
+  .modal-bg.open{display:flex}
+  .modal{background:#fff;border-radius:14px;max-width:940px;width:100%;max-height:88vh;overflow:auto;
+    box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .mhead{position:sticky;top:0;background:var(--navy);color:#fff;padding:15px 20px;display:flex;
+    justify-content:space-between;align-items:center;z-index:2}
+  .mhead h2{font-size:16px}
+  .mclose{background:rgba(255,255,255,.12);border:none;color:#fff;width:30px;height:30px;border-radius:7px;font-size:17px}
+  .mbody{padding:20px}
+  .cmp-tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .cmp-tbl th,.cmp-tbl td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  .cmp-tbl thead th{background:var(--bg);font-size:12px;color:var(--muted);position:sticky;top:60px}
+  .cmp-tbl .rowlbl{color:var(--muted);font-weight:600;font-size:12px;background:#fafbfc}
+  .cmp-tbl .win{color:var(--green);font-weight:700}
+  .cmp-tbl td .rn{font-weight:700;color:var(--navy)}
+
+  /* Report modal form */
+  .frow{margin-bottom:12px}
+  .frow label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px}
+
+  /* Footer */
+  footer{background:var(--navy);color:#c3d0e0;padding:20px 24px;font-size:12px;line-height:1.6}
+  footer .fw{max-width:1100px;margin:0 auto}
+  footer b{color:#fff}
+  footer .disc{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12);color:#93a6bf;font-size:11.5px}
+
+  .loading{text-align:center;padding:50px;color:var(--muted)}
+  .spin{width:30px;height:30px;border:3px solid var(--line);border-top-color:var(--navy);
+    border-radius:50%;animation:sp 0.8s linear infinite;margin:0 auto 14px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  @media (max-width:860px){
+    aside{position:fixed;left:0;top:71px;height:calc(100vh - 71px);z-index:35;transform:translateX(-100%);
+      transition:transform .22s;box-shadow:6px 0 24px rgba(0,0,0,.12)}
+    aside.open{transform:translateX(0)}
+    .btn-menu{display:block}
+    .wrap{display:block}
+    main{padding:16px}
+    header h1{font-size:15px}
+    .modechip{display:none}
+    .ptop{flex-direction:column}
+    .pcost{text-align:left}
+    .drow{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<header>
+  <button class="btn-menu" id="menuBtn" aria-label="Toggle filters">☰ Filters</button>
+  <div class="brand">
+    <div class="spark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z" fill="#ffd23f" stroke="#ffd23f" stroke-width="1" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Energy Plan Comparison Tool</h1>
+      <div class="sub">Cyber Financial · cheapest electricity &amp; gas plans for your usage · AER Energy CDR data</div>
+    </div>
+  </div>
+  <div class="hspace"></div>
+  <div class="modechip" id="modeChip">Sample data</div>
+</header>
+
+<div class="wrap">
+  <aside id="sidebar">
+    <div class="grp">
+      <h3>Fuel</h3>
+      <div class="chips" id="fuelChips">
+        <div class="chip on" data-fuel="ELECTRICITY">Electricity</div>
+        <div class="chip" data-fuel="GAS">Gas</div>
+        <div class="chip" data-fuel="DUAL">Dual fuel</div>
+      </div>
+      <div class="hint">Dual fuel compares bundled plans on combined electricity + gas cost.</div>
+    </div>
+
+    <div class="grp">
+      <h3>Your property</h3>
+      <label class="f">Customer type</label>
+      <div class="chips" id="custChips">
+        <div class="chip on" data-cust="RESIDENTIAL">Residential</div>
+        <div class="chip" data-cust="BUSINESS">Business</div>
+      </div>
+      <label class="f">Postcode</label>
+      <input type="text" id="postcode" inputmode="numeric" maxlength="4" placeholder="e.g. 4000">
+      <div class="hint" id="pcHint">Enter your postcode to set your state and network automatically.</div>
+      <label class="f">State / territory</label>
+      <select id="state">
+        <option value="QLD">Queensland</option>
+        <option value="NSW">New South Wales</option>
+        <option value="VIC">Victoria</option>
+        <option value="SA">South Australia</option>
+        <option value="ACT">ACT</option>
+        <option value="TAS">Tasmania</option>
+      </select>
+      <label class="f">Distribution network <span style="font-weight:400;color:var(--muted2)">(optional)</span></label>
+      <select id="distributor"><option value="">All networks in state</option></select>
+      <div class="hint">Plans vary by network. Leave as “All” to see every plan available in your state.</div>
+    </div>
+
+    <div class="grp" id="elecUsageGrp">
+      <h3>Electricity usage</h3>
+      <label class="f">Household / site size</label>
+      <div class="chips" id="sizeChips">
+        <div class="chip" data-kwh="2000">1 person</div>
+        <div class="chip" data-kwh="3600">2 people</div>
+        <div class="chip on" data-kwh="5500">3–4 people</div>
+        <div class="chip" data-kwh="8000">5+ people</div>
+      </div>
+      <label class="f">Annual usage (kWh)</label>
+      <input type="number" id="annualKwh" value="5500" min="0" step="100">
+      <div class="hint">Find this on any recent bill (kWh used ÷ days × 365), or use a preset above.</div>
+
+      <label class="toggle"><input type="checkbox" id="hasTou"> I have (or want) a time-of-use meter</label>
+      <div id="touSplit" style="display:none">
+        <label class="f">Usage split — Peak / Shoulder / Off-peak (%)</label>
+        <div class="row3">
+          <input type="number" id="pkPct" value="35" min="0" max="100">
+          <input type="number" id="shPct" value="30" min="0" max="100">
+          <input type="number" id="opPct" value="35" min="0" max="100">
+        </div>
+        <div class="hint">Peak = weekday afternoons/evenings. Off-peak = overnight. Must total 100%.</div>
+      </div>
+
+      <label class="toggle"><input type="checkbox" id="hasCl"> Controlled load (e.g. electric hot water)</label>
+      <div id="clWrap" style="display:none">
+        <label class="f">Controlled load usage (kWh/yr)</label>
+        <input type="number" id="clKwh" value="1500" min="0" step="100">
+      </div>
+    </div>
+
+    <div class="grp" id="gasUsageGrp" style="display:none">
+      <h3>Gas usage</h3>
+      <label class="f">What do you use gas for?</label>
+      <div class="chips" id="gasSizeChips">
+        <div class="chip" data-mj="3000">Cooking only</div>
+        <div class="chip on" data-mj="11000">Hot water + cooking</div>
+        <div class="chip" data-mj="22000">+ Gas heating</div>
+      </div>
+      <label class="f">Annual gas usage (MJ)</label>
+      <input type="number" id="annualMj" value="11000" min="0" step="500">
+      <div class="hint">Gas is billed in megajoules (MJ). A typical home using gas heating, hot water and cooking uses ~20,000–30,000 MJ/yr.</div>
+    </div>
+
+    <div class="grp" id="solarGrp">
+      <h3>Solar &amp; green power</h3>
+      <label class="toggle"><input type="checkbox" id="hasSolar"> I have rooftop solar</label>
+      <div id="solarWrap" style="display:none">
+        <label class="f">Annual solar export to grid (kWh)</label>
+        <input type="number" id="solarKwh" value="4000" min="0" step="100">
+        <div class="hint">Exported (not self-consumed) energy. A 6.6kW system commonly exports ~3,000–5,000 kWh/yr.</div>
+      </div>
+      <label class="f">GreenPower</label>
+      <div class="chips" id="greenChips">
+        <div class="chip on" data-green="0">None</div>
+        <div class="chip" data-green="10">10%</div>
+        <div class="chip" data-green="100">100%</div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <h3>Plan filters</h3>
+      <label class="f">Offer type</label>
+      <div class="chips" id="offerChips">
+        <div class="chip on" data-offer="ALL">All</div>
+        <div class="chip" data-offer="MARKET">Market</div>
+        <div class="chip" data-offer="STANDING">Standing</div>
+      </div>
+      <label class="toggle"><input type="checkbox" id="fNoExit"> No exit / termination fees</label>
+      <label class="toggle"><input type="checkbox" id="fNoLock"> No fixed benefit period / lock-in</label>
+      <label class="toggle"><input type="checkbox" id="fPayOnTime"> Has pay-on-time discount</label>
+      <label class="toggle"><input type="checkbox" id="fSolar"> Offers a solar feed-in tariff</label>
+      <label class="f">Show cost as</label>
+      <div class="chips" id="periodChips">
+        <div class="chip on" data-period="year">Per year</div>
+        <div class="chip" data-period="quarter">Per quarter</div>
+      </div>
+    </div>
+
+    <button class="btn" id="applyBtn">Update comparison</button>
+    <button class="btn sec" id="resetBtn" style="margin-top:8px">Reset filters</button>
+  </aside>
+
+  <main>
+    <div class="assume" id="assumeBox">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#1f6fb2" stroke-width="1.6"/><path d="M12 8v5M12 16h.01" stroke="#1f6fb2" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <div id="assumeText"></div>
+    </div>
+
+    <div class="rhead">
+      <h2>Cheapest plans</h2>
+      <span class="count" id="resultCount">—</span>
+      <div class="sort">
+        <div class="tools">
+          <button class="tbtn" id="compareBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Compare (<span id="cmpCount">0</span>)</button>
+          <button class="tbtn" id="csvBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>CSV</button>
+          <button class="tbtn" id="reportBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13H7V3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.6"/></svg>Client report</button>
+        </div>
+        <select id="sortSel">
+          <option value="cost">Lowest cost (incl. guaranteed discounts)</option>
+          <option value="costCond">Lowest cost (incl. conditional discounts)</option>
+          <option value="supply">Lowest daily supply charge</option>
+          <option value="usage">Lowest usage rate</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="results"></div>
+  </main>
+</div>
+
+<!-- Compare modal -->
+<div class="modal-bg" id="cmpModal">
+  <div class="modal">
+    <div class="mhead"><h2>Side-by-side comparison</h2><button class="mclose" id="cmpClose">×</button></div>
+    <div class="mbody"><table class="cmp-tbl" id="cmpTable"></table></div>
+  </div>
+</div>
+
+<!-- Report modal -->
+<div class="modal-bg" id="repModal">
+  <div class="modal" style="max-width:560px">
+    <div class="mhead"><h2>Generate client comparison report</h2><button class="mclose" id="repClose">×</button></div>
+    <div class="mbody">
+      <div class="frow"><label>Client name</label><input type="text" id="rClient" placeholder="e.g. John &amp; Jane Citizen"></div>
+      <div class="frow"><label>Prepared by</label><input type="text" id="rAdviser" value="Cyber Financial Pty Ltd"></div>
+      <div class="frow"><label>Notes (optional)</label><input type="text" id="rNotes" placeholder="Context for this comparison"></div>
+      <div class="hint" style="margin-bottom:14px">Generates a printable summary of the current results and your usage assumptions. Opens the browser print dialog — choose “Save as PDF”.</div>
+      <button class="btn" id="repGo">Generate &amp; print</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fw">
+    <b>Cyber Financial Electricity Plan Comparison Tool.</b> Estimates use generic plan data published by the Australian Energy Regulator (and Victoria’s DEECA) under the Consumer Data Right — the same source as Energy Made Easy and Victoria Energy Compare.
+    <div class="disc">
+      Cyber Financial Pty Ltd (AR 413231) · CAR 413232 under Estrala Capital Pty Ltd (AFSL 485923).
+      Cost figures are <b>estimates only</b> based on the usage assumptions you enter and published generic tariffs; they are not quotes and do not account for every fee, concession, conditional discount condition, or your actual consumption profile. This tool provides factual comparison information and is not personal financial or energy advice. Always confirm current pricing on the retailer’s own Basic Plan Information Document before switching. For an official estimate using your actual meter data, see <a href="https://www.energymadeeasy.gov.au" target="_blank" rel="noopener">energymadeeasy.gov.au</a> (or <a href="https://compare.energy.vic.gov.au" target="_blank" rel="noopener">Victoria Energy Compare</a>).
+    </div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+/* ============================================================
+   Cyber Financial — Electricity Plan Comparison Tool
+   Data source: AER / Victorian DEECA Energy Product Reference
+   Data (CDR). Central host: https://cdr.energymadeeasy.gov.au
+   Endpoints (per retailer code <r>):
+     GET /<r>/cds-au/v1/energy/plans          (x-v: 1, list)
+     GET /<r>/cds-au/v1/energy/plans/{planId} (x-v: 2+, detail)
+   Browser CORS blocks direct calls, and volume is huge
+   (AGL alone ~1,300+ plans), so production uses a nightly
+   server-side harvester feed. Sample data below lets the tool
+   run standalone offline.
+   ============================================================ */
+
+const CONFIG = {
+  // Point this at your harvested feed (GitHub Pages), e.g.
+  //   "https://marksterpin.github.io/energy-plan-feed/data"
+  // and it will load <RAW_BASE>/index.json + shards. Empty = sample mode.
+  RAW_BASE: "",
+  LIVE_HOST: "https://cdr.energymadeeasy.gov.au",
+  // Prices in AER energy feeds are published in CENTS in practice
+  // (e.g. supply "92.00" c/day, usage "33.58" c/kWh) though the CDS
+  // docs show dollar examples. We auto-detect per value to be safe.
+  UNIT_DETECT: true
+};
+
+/* ---------- Distributor reference (for the network dropdown) ---------- */
+const DISTRIBUTORS = {
+  QLD:["Energex","Ergon Energy"],
+  NSW:["Ausgrid","Endeavour Energy","Essential Energy"],
+  VIC:["CitiPower","Powercor","United Energy","Jemena","AusNet Services"],
+  SA:["SA Power Networks"],
+  ACT:["Evoenergy"],
+  TAS:["TasNetworks"]
+};
+
+/* ============================================================
+   POSTCODE LOOKUP
+   State is resolved reliably from postcode ranges. Distributor
+   is auto-selected only where unambiguous (single-network states,
+   and QLD's clean Energex[SEQ]/Ergon[regional] split). NSW gives
+   a best-effort metro suggestion; VIC is left to "All networks"
+   because its 5 distributors split Melbourne by suburb, not
+   postcode. Result: {state, distributor|null, confidence}.
+   ============================================================ */
+function inRanges(pc, ranges){ return ranges.some(([a,b])=>pc>=a&&pc<=b); }
+function lookupPostcode(raw){
+  const pc = parseInt(String(raw).slice(0,4),10);
+  if(isNaN(pc)||String(raw).length<4) return null;
+  // state
+  let state=null;
+  if((pc>=2600&&pc<=2618)||(pc>=2900&&pc<=2920)) state="ACT";
+  else if((pc>=2000&&pc<=2599)||(pc>=2619&&pc<=2899)||(pc>=2921&&pc<=2999)) state="NSW";
+  else if((pc>=3000&&pc<=3999)||(pc>=8000&&pc<=8999)) state="VIC";
+  else if((pc>=4000&&pc<=4999)||(pc>=9000&&pc<=9999)) state="QLD";
+  else if(pc>=5000&&pc<=5999) state="SA";
+  else if(pc>=6000&&pc<=6999) state="WA";
+  else if(pc>=7000&&pc<=7999) state="TAS";
+  else if(pc>=800&&pc<=899)   state="NT";
+  if(!state) return null;
+  if(state==="WA"||state==="NT") return {state, distributor:null, confidence:"outside", note:state+" is not part of the National Energy Market — CDR plan data isn’t available here."};
+  // distributor
+  if(state==="SA") return {state, distributor:"SA Power Networks", confidence:"exact"};
+  if(state==="ACT") return {state, distributor:"Evoenergy", confidence:"exact"};
+  if(state==="TAS") return {state, distributor:"TasNetworks", confidence:"exact"};
+  if(state==="QLD"){
+    const seq=[[4000,4207],[4270,4287],[4300,4342],[4500,4521],[4550,4575],[4580,4581]];
+    return {state, distributor: inRanges(pc,seq)?"Energex":"Ergon Energy", confidence:"exact"};
+  }
+  if(state==="NSW"){
+    if(inRanges(pc,[[2000,2159],[2250,2265],[2280,2310],[2315,2330]])) return {state,distributor:"Ausgrid",confidence:"suggested"};
+    if(inRanges(pc,[[2160,2179],[2500,2535],[2555,2574],[2745,2786]])) return {state,distributor:"Endeavour Energy",confidence:"suggested"};
+    return {state, distributor:null, confidence:"state", note:"Regional NSW is usually Essential Energy — confirm your network if it matters."};
+  }
+  return {state, distributor:null, confidence:"state"}; // VIC
+}
+
+/* ============================================================
+   UNIT NORMALISATION
+   Convert a published price string to DOLLARS.
+   Heuristic: a residential $/kWh is < ~5; a c/kWh is 5–150.
+   A $/day supply is < ~10; a c/day supply is 10–1000.
+   ============================================================ */
+function toDollars(raw, kind){
+  if(raw===null||raw===undefined||raw==="") return 0;
+  let v = parseFloat(String(raw).replace(/[^0-9.\-]/g,""));
+  if(isNaN(v)) return 0;
+  if(!CONFIG.UNIT_DETECT) return v;
+  // Above the threshold the value is in cents; below it, dollars.
+  // Supply: dollar/day never exceeds ~10 ($3,650/yr); cents/day is 80-150.
+  // Per-kWh (usage & solar FiT): dollar/kWh never exceeds ~1.5 (peak ~$0.60);
+  //   cents/kWh is 15-60, and solar FiT in cents is ~3-15 — a FiT of "5.0"
+  //   means 5c, so the per-kWh threshold must sit below it.
+  const thresh = kind==="supply" ? 10 : 1.5;
+  return v > thresh ? v/100 : v;
+}
+
+/* ============================================================
+   COST ENGINE
+   estimateAnnualCost(plan, usage) -> {
+     total, totalCond, supply, usage, solarCredit, greenCost,
+     guaranteedDisc, conditionalDisc, usageRateAvg
+   }  (all $/yr)
+   ============================================================ */
+function estimateAnnualCost(plan, u){
+  const c = plan.electricityContract || {};
+  const tp = (c.tariffPeriod && c.tariffPeriod[0]) || {};
+  let supply = toDollars(tp.dailySupplyCharges, "supply") * 365;
+
+  // ---- usage ----
+  let usageCost = 0, rateAvg = 0;
+  const annual = Math.max(0, u.annualKwh||0);
+
+  if(u.hasTou && tp.timeOfUseRates && tp.timeOfUseRates.length){
+    const split = {PEAK:u.pkPct/100, SHOULDER:u.shPct/100, OFF_PEAK:u.opPct/100};
+    // fallbacks if a plan lacks a band
+    const byType = {};
+    tp.timeOfUseRates.forEach(r=>{ byType[r.type] = firstRate(r.rates); });
+    const pk = byType.PEAK ?? byType.SHOULDER ?? byType.OFF_PEAK ?? 0;
+    const sh = byType.SHOULDER ?? pk;
+    const op = byType.OFF_PEAK ?? sh;
+    usageCost = annual*(split.PEAK*pk + split.SHOULDER*sh + split.OFF_PEAK*op);
+    rateAvg = split.PEAK*pk + split.SHOULDER*sh + split.OFF_PEAK*op;
+  } else if(tp.singleRate){
+    const r = steppedRate(tp.singleRate.rates, annual, tp.singleRate.period);
+    usageCost = r.cost; rateAvg = r.avg;
+  } else if(tp.timeOfUseRates && tp.timeOfUseRates.length){
+    // plan is TOU-only but user chose single: approximate with peak/offpeak avg
+    const rates = tp.timeOfUseRates.map(r=>firstRate(r.rates)).filter(x=>x>0);
+    rateAvg = rates.length? rates.reduce((a,b)=>a+b,0)/rates.length : 0;
+    usageCost = annual*rateAvg;
+  }
+
+  // ---- controlled load ----
+  let clCost = 0;
+  if(u.hasCl && c.controlledLoad && c.controlledLoad.length){
+    const cl = c.controlledLoad[0];
+    const clTp = (cl.tariffPeriod && cl.tariffPeriod[0]) || cl;
+    const clRate = clTp.singleRate ? firstRate(clTp.singleRate.rates)
+                 : (clTp.rates ? firstRate(clTp.rates) : 0);
+    clCost = (u.clKwh||0)*clRate;
+    if(clTp.dailySupplyCharges) supply += toDollars(clTp.dailySupplyCharges,"supply")*365;
+  }
+
+  // ---- green power ----
+  let greenCost = 0;
+  if(u.greenPct>0 && c.greenPowerCharges && c.greenPowerCharges.length){
+    const g = c.greenPowerCharges.find(x=>Math.round((parseFloat(x.tiers&&x.tiers[0]&&x.tiers[0].percentGreen||0))*100)===u.greenPct)
+            || c.greenPowerCharges[0];
+    const perUnit = g && g.tiers && g.tiers[0] ? toDollars(g.tiers[0].amount,"usage") : 0;
+    greenCost = annual*(u.greenPct/100)*perUnit;
+  }
+
+  // ---- solar feed-in credit ----
+  let solarCredit = 0;
+  if(u.hasSolar && u.solarKwh>0){
+    const fit = bestSolarFit(c.solarFeedInTariff);
+    solarCredit = u.solarKwh * fit;
+  }
+
+  let subtotal = supply + usageCost + clCost + greenCost - solarCredit;
+
+  // ---- discounts ----
+  const gd = discountAmount(c.discounts, "GUARANTEED", subtotal, usageCost);
+  const cd = discountAmount(c.discounts, "CONDITIONAL", subtotal, usageCost);
+
+  const total = Math.max(0, subtotal - gd);
+  const totalCond = Math.max(0, subtotal - gd - cd);
+
+  return {
+    total, totalCond, supply, usage:usageCost, cl:clCost, greenCost,
+    solarCredit, guaranteedDisc:gd, conditionalDisc:cd,
+    usageRateAvg:rateAvg, dailySupply: toDollars(tp.dailySupplyCharges,"supply")
+  };
+}
+
+function firstRate(rates){ return rates&&rates[0] ? toDollars(rates[0].unitPrice,"usage") : 0; }
+
+function steppedRate(rates, annualKwh, period){
+  if(!rates||!rates.length) return {cost:0,avg:0};
+  if(rates.length===1) { const r=toDollars(rates[0].unitPrice,"usage"); return {cost:annualKwh*r,avg:r}; }
+  // stepped/block: volumes typically per day (period P1D) — scale thresholds to annual
+  const perDay = period==="P1D";
+  let remaining = annualKwh, cost=0;
+  for(const b of rates){
+    const rate = toDollars(b.unitPrice,"usage");
+    if(b.volume===undefined||b.volume===null){ cost += remaining*rate; remaining=0; break; }
+    let vol = perDay ? b.volume*365 : b.volume;
+    const take = Math.min(remaining, vol);
+    cost += take*rate; remaining -= take;
+    if(remaining<=0) break;
+  }
+  if(remaining>0){ const last=toDollars(rates[rates.length-1].unitPrice,"usage"); cost+=remaining*last; }
+  return {cost, avg: annualKwh>0? cost/annualKwh : 0};
+}
+
+function discountAmount(discounts, type, subtotal, usageCost){
+  if(!discounts||!discounts.length) return 0;
+  let total=0;
+  discounts.filter(d=>(d.type||"").toUpperCase()===type).forEach(d=>{
+    const base = (d.category==="PAY_ON_TIME"||d.methodUType==="percentOfUse") ? usageCost : subtotal;
+    if(d.methodUType==="percentOfBill" && d.percentOfBill) total += subtotal*(parseFloat(d.percentOfBill.rate)/100);
+    else if(d.methodUType==="percentOfUse" && d.percentOfUse) total += usageCost*(parseFloat(d.percentOfUse.rate)/100);
+    else if(d.methodUType==="fixedAmount" && d.fixedAmount) total += parseFloat(d.fixedAmount.amount||0);
+    else if(d.percentOfBill) total += subtotal*(parseFloat(d.percentOfBill.rate)/100);
+    else if(d.fixedAmount) total += parseFloat(d.fixedAmount.amount||0);
+  });
+  return total;
+}
+
+function bestSolarFit(fits){
+  if(!fits||!fits.length) return 0;
+  let best=0;
+  fits.forEach(f=>{
+    if(f.singleTariff){ const r=firstRate(f.singleTariff.rates); if(r>best)best=r; }
+    else if(f.timeVaryingTariffs && f.timeVaryingTariffs.length){
+      f.timeVaryingTariffs.forEach(t=>{ const r=firstRate(t.rates); if(r>best)best=r; });
+    } else if(f.tariffUType==="singleTariff" && f.rates){ const r=firstRate(f.rates); if(r>best)best=r; }
+  });
+  return best;
+}
+
+/* ============================================================
+   GAS COST ENGINE
+   Gas is billed per MEGAJOULE (c/MJ), commonly with declining
+   block rates. No solar / TOU / controlled load.
+   estimateGasCost(plan, gasUsage) -> {total, totalCond, supply,
+     usage, guaranteedDisc, conditionalDisc, usageRateAvg}  ($/yr)
+   ============================================================ */
+function estimateGasCost(plan, u){
+  const c = plan.gasContract || {};
+  const tp = (c.tariffPeriod && c.tariffPeriod[0]) || {};
+  const supply = toDollars(tp.dailySupplyCharges,"supply")*365;
+  const annual = Math.max(0, u.annualMj||0);
+  let usageCost=0, rateAvg=0;
+  if(tp.singleRate){
+    const r = steppedRate(tp.singleRate.rates, annual, tp.singleRate.period);
+    usageCost=r.cost; rateAvg=r.avg;
+  } else if(tp.rates){
+    const r = steppedRate(tp.rates, annual, tp.period);
+    usageCost=r.cost; rateAvg=r.avg;
+  }
+  const subtotal = supply + usageCost;
+  const gd = discountAmount(c.discounts,"GUARANTEED",subtotal,usageCost);
+  const cd = discountAmount(c.discounts,"CONDITIONAL",subtotal,usageCost);
+  return {
+    total:Math.max(0,subtotal-gd), totalCond:Math.max(0,subtotal-gd-cd),
+    supply, usage:usageCost, guaranteedDisc:gd, conditionalDisc:cd,
+    usageRateAvg:rateAvg, dailySupply:toDollars(tp.dailySupplyCharges,"supply")
+  };
+}
+
+/* ============================================================
+   FUEL DISPATCH
+   Returns a unified estimate for the selected fuel. For DUAL,
+   combines the electricity and gas contracts on one plan.
+   ============================================================ */
+function estimateForFuel(plan, fuel, uElec, uGas){
+  if(fuel==="GAS"){
+    const g = estimateGasCost(plan, uGas);
+    return {...g, fuel:"GAS", elec:null, gas:g};
+  }
+  if(fuel==="DUAL"){
+    const e = estimateAnnualCost(plan, uElec);
+    const g = estimateGasCost(plan, uGas);
+    return {
+      fuel:"DUAL", elec:e, gas:g,
+      total:e.total+g.total, totalCond:e.totalCond+g.totalCond,
+      supply:e.supply+g.supply, usage:e.usage+e.cl+g.usage,
+      guaranteedDisc:e.guaranteedDisc+g.guaranteedDisc,
+      conditionalDisc:e.conditionalDisc+g.conditionalDisc,
+      solarCredit:e.solarCredit, dailySupply:e.dailySupply, usageRateAvg:e.usageRateAvg,
+      cl:e.cl, greenCost:e.greenCost
+    };
+  }
+  const e = estimateAnnualCost(plan, uElec);
+  return {...e, fuel:"ELECTRICITY", elec:e, gas:null};
+}
+
+/* ============================================================
+   PLAN FLAGS (for filters + badges)
+   ============================================================ */
+function planFlags(plan){
+  const c = (STATE.fuel==="GAS" && plan.gasContract) ? plan.gasContract : (plan.electricityContract||{});
+  const discs = c.discounts||[];
+  const fees = c.fees||[];
+  const ec = plan.electricityContract||{};
+  return {
+    market: plan.type!=="STANDING" && (plan.type==="MARKET"||!plan.type),
+    standing: plan.type==="STANDING",
+    hasExitFee: fees.some(f=>/exit|termination|early/i.test((f.type||"")+(f.description||""))),
+    lockIn: !!(c.benefitPeriod && !/^(none|nil|ongoing|no)/i.test(c.benefitPeriod)),
+    payOnTime: discs.some(d=>d.category==="PAY_ON_TIME" || /on.?time/i.test(d.displayName||"")),
+    hasSolarFit: !!(ec.solarFeedInTariff && ec.solarFeedInTariff.length && bestSolarFit(ec.solarFeedInTariff)>0),
+    green: !!(ec.greenPowerCharges && ec.greenPowerCharges.length),
+    isTou: !!((ec.tariffPeriod&&ec.tariffPeriod[0]&&ec.tariffPeriod[0].timeOfUseRates)),
+    hasCl: !!(ec.controlledLoad && ec.controlledLoad.length),
+    guaranteedDisc: discs.some(d=>(d.type||"").toUpperCase()==="GUARANTEED"),
+    conditionalDisc: discs.some(d=>(d.type||"").toUpperCase()==="CONDITIONAL"),
+    fuels: planFuelTypes(plan)
+  };
+}
+
+/* Which fuels a plan supports, from its contracts. */
+function planFuelTypes(plan){
+  const hasE = !!(plan.electricityContract && plan.electricityContract.tariffPeriod && plan.electricityContract.tariffPeriod.length);
+  const hasG = !!(plan.gasContract && plan.gasContract.tariffPeriod && plan.gasContract.tariffPeriod.length);
+  return {electricity:hasE, gas:hasG, dual:hasE&&hasG};
+}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const STATE = {
+  fuel:"ELECTRICITY", cust:"RESIDENTIAL", green:0, offer:"ALL", period:"year",
+  plans:[], compareSet:new Set(), lastResults:[]
+};
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function fmt$(n){ return "$"+Math.round(n).toLocaleString("en-AU"); }
+function fmtc(n){ return (n*100).toFixed(1)+"c"; }
+
+function readUsage(){
+  const g = id=>document.getElementById(id);
+  return {
+    annualKwh:+g("annualKwh").value||0,
+    hasTou:g("hasTou").checked, pkPct:+g("pkPct").value||0, shPct:+g("shPct").value||0, opPct:+g("opPct").value||0,
+    hasCl:g("hasCl").checked, clKwh:+g("clKwh").value||0,
+    hasSolar:g("hasSolar").checked, solarKwh:+g("solarKwh").value||0,
+    greenPct:STATE.green,
+    annualMj:+g("annualMj").value||0
+  };
+}
+
+function currentFilters(){
+  const g=id=>document.getElementById(id);
+  return {
+    state:g("state").value,
+    distributor:g("distributor").value,
+    cust:STATE.cust, offer:STATE.offer,
+    noExit:g("fNoExit").checked, noLock:g("fNoLock").checked,
+    payOnTime:g("fPayOnTime").checked, solar:g("fSolar").checked
+  };
+}
+
+function planMatchesFilters(plan, f){
+  const geo = plan.geography||{};
+  // fuel
+  const ft = planFuelTypes(plan);
+  if(STATE.fuel==="ELECTRICITY" && !ft.electricity) return false;
+  if(STATE.fuel==="GAS" && !ft.gas) return false;
+  if(STATE.fuel==="DUAL" && !ft.dual) return false;
+  // state
+  if(geo.state && geo.state!==f.state) return false;
+  // distributor
+  if(f.distributor && geo.distributors && geo.distributors.length &&
+     !geo.distributors.some(d=>d.toLowerCase().includes(f.distributor.toLowerCase()))) return false;
+  // customer type
+  if(plan.customerType && plan.customerType!==f.cust) return false;
+  // offer
+  const fl=planFlags(plan);
+  if(f.offer==="MARKET" && !fl.market) return false;
+  if(f.offer==="STANDING" && !fl.standing) return false;
+  if(f.noExit && fl.hasExitFee) return false;
+  if(f.noLock && fl.lockIn) return false;
+  if(f.payOnTime && !fl.payOnTime) return false;
+  if(f.solar && !fl.hasSolarFit) return false;
+  return true;
+}
+
+function run(){
+  const usage = readUsage();
+  const f = currentFilters();
+  const sort = document.getElementById("sortSel").value;
+
+  let rows = STATE.plans
+    .filter(p=>planMatchesFilters(p,f))
+    .map(p=>{
+      const est = estimateForFuel(p, STATE.fuel, usage, usage);
+      return {plan:p, est, flags:planFlags(p)};
+    });
+
+  rows.sort((a,b)=>{
+    if(sort==="cost") return a.est.total-b.est.total;
+    if(sort==="costCond") return a.est.totalCond-b.est.totalCond;
+    if(sort==="supply") return a.est.dailySupply-b.est.dailySupply;
+    if(sort==="usage") return a.est.usageRateAvg-b.est.usageRateAvg;
+    return 0;
+  });
+
+  STATE.lastResults = rows;
+  renderAssumption(usage,f);
+  renderResults(rows);
+  document.getElementById("resultCount").textContent = rows.length+" plan"+(rows.length!==1?"s":"");
+}
+
+function renderAssumption(u,f){
+  const bits=[];
+  bits.push("<b>"+f.state+"</b>"+(f.distributor?" · "+f.distributor:""));
+  bits.push((f.cust==="BUSINESS"?"Business":"Residential"));
+  if(STATE.fuel!=="GAS"){
+    bits.push("<b>"+u.annualKwh.toLocaleString("en-AU")+" kWh/yr</b>");
+    if(u.hasTou) bits.push("time-of-use "+u.pkPct+"/"+u.shPct+"/"+u.opPct);
+    if(u.hasCl) bits.push("+ "+u.clKwh.toLocaleString("en-AU")+" kWh controlled load");
+    if(u.hasSolar) bits.push(u.solarKwh.toLocaleString("en-AU")+" kWh solar export");
+    if(u.greenPct>0) bits.push(u.greenPct+"% GreenPower");
+  }
+  if(STATE.fuel!=="ELECTRICITY"){
+    bits.push("<b>"+u.annualMj.toLocaleString("en-AU")+" MJ/yr gas</b>");
+  }
+  const fuelWord = STATE.fuel==="DUAL"?"combined electricity + gas":STATE.fuel==="GAS"?"gas":"electricity";
+  document.getElementById("assumeText").innerHTML =
+    "Estimating annual "+fuelWord+" cost for: "+bits.join(" · ")+
+    ". Figures include <b>guaranteed</b> discounts"+(STATE.fuel!=="GAS"?" and solar credits":"")+
+    "; conditional (e.g. pay-on-time) discounts are shown where applicable but depend on you meeting the conditions.";
+}
+
+function renderResults(rows){
+  const el = document.getElementById("results");
+  if(!rows.length){
+    el.innerHTML = '<div class="empty"><svg viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18M10.5 5.1A9 9 0 0121 12M3.5 9A9 9 0 004 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><div>No plans match these filters. Try widening the network or offer type.</div></div>';
+    return;
+  }
+  const per = STATE.period;
+  const cheapest = rows[0].est.total;
+  el.innerHTML = rows.map((r,i)=>{
+    const p=r.plan, e=r.est, fl=r.flags;
+    const cost = per==="quarter" ? e.total/4 : e.total;
+    const label = per==="quarter" ? "per quarter (est.)" : "per year (est.)";
+    const qtr = per==="year" ? '<div class="qtr">≈ '+fmt$(e.total/4)+"/qtr · "+fmt$(e.total/12)+"/mo</div>"
+                             : '<div class="qtr">≈ '+fmt$(e.total)+"/yr</div>";
+    const cond = e.conditionalDisc>0 ? '<div class="cond">'+fmt$((per==="quarter"?e.totalCond/4:e.totalCond))+" with conditional discounts</div>" : "";
+    const badges=[];
+    if(i===0) badges.push('<span class="badge b-green">Cheapest</span>');
+    if(STATE.fuel==="DUAL") badges.push('<span class="badge b-blue">Dual fuel</span>');
+    if(STATE.fuel==="GAS") badges.push('<span class="badge b-amber">Gas</span>');
+    if(fl.standing) badges.push('<span class="badge b-grey">Standing offer</span>');
+    if(STATE.fuel!=="GAS" && fl.isTou) badges.push('<span class="badge b-blue">Time of use</span>');
+    if(fl.payOnTime) badges.push('<span class="badge b-amber">Pay-on-time disc.</span>');
+    if(STATE.fuel!=="GAS" && fl.hasSolarFit) badges.push('<span class="badge b-green">Solar FiT</span>');
+    if(STATE.fuel!=="GAS" && fl.green) badges.push('<span class="badge b-green">GreenPower</span>');
+    if(!fl.hasExitFee) badges.push('<span class="badge b-grey">No exit fee</span>');
+
+    const saveVs = i>0 ? '<span class="bk"><span class="l">vs cheapest</span><br><span class="v" style="color:var(--red)">+'+fmt$(e.total-cheapest)+"/yr</span></span>" : "";
+
+    let breakHtml="";
+    if(STATE.fuel==="GAS"){
+      breakHtml =
+         '<span class="bk"><span class="l">Daily supply</span><br><span class="v">'+fmtc(e.dailySupply)+'/day</span></span>'
+        +'<span class="bk"><span class="l">Usage rate</span><br><span class="v">'+fmtc(e.usageRateAvg)+'/MJ</span></span>'
+        +'<span class="bk"><span class="l">Supply / yr</span><br><span class="v">'+fmt$(e.supply)+'</span></span>'
+        +'<span class="bk"><span class="l">Usage / yr</span><br><span class="v">'+fmt$(e.usage)+'</span></span>'
+        +(e.guaranteedDisc>0?'<span class="bk"><span class="l">Guaranteed disc.</span><br><span class="v" style="color:var(--green)">−'+fmt$(e.guaranteedDisc)+'</span></span>':'');
+    } else if(STATE.fuel==="DUAL"){
+      breakHtml =
+         '<span class="bk"><span class="l">Electricity / yr</span><br><span class="v">'+fmt$(e.elec.total)+'</span></span>'
+        +'<span class="bk"><span class="l">Gas / yr</span><br><span class="v">'+fmt$(e.gas.total)+'</span></span>'
+        +'<span class="bk"><span class="l">Elec usage rate</span><br><span class="v">'+fmtc(e.elec.usageRateAvg)+'/kWh</span></span>'
+        +'<span class="bk"><span class="l">Gas usage rate</span><br><span class="v">'+fmtc(e.gas.usageRateAvg)+'/MJ</span></span>'
+        +(e.elec.solarCredit>0?'<span class="bk"><span class="l">Solar credit</span><br><span class="v" style="color:var(--green)">−'+fmt$(e.elec.solarCredit)+'</span></span>':'');
+    } else {
+      breakHtml =
+         '<span class="bk"><span class="l">Daily supply</span><br><span class="v">'+fmtc(e.dailySupply)+'/day</span></span>'
+        +'<span class="bk"><span class="l">Usage rate</span><br><span class="v">'+fmtc(e.usageRateAvg)+'/kWh</span></span>'
+        +'<span class="bk"><span class="l">Supply / yr</span><br><span class="v">'+fmt$(e.supply)+'</span></span>'
+        +'<span class="bk"><span class="l">Usage / yr</span><br><span class="v">'+fmt$(e.usage+e.cl)+'</span></span>'
+        +(e.solarCredit>0?'<span class="bk"><span class="l">Solar credit</span><br><span class="v" style="color:var(--green)">−'+fmt$(e.solarCredit)+'</span></span>':'')
+        +(e.guaranteedDisc>0?'<span class="bk"><span class="l">Guaranteed disc.</span><br><span class="v" style="color:var(--green)">−'+fmt$(e.guaranteedDisc)+'</span></span>':'');
+    }
+
+    return '<div class="plan'+(i===0?' best':'')+'" data-idx="'+i+'">'
+      +'<div class="rank">#'+(i+1)+'</div>'
+      +'<div class="ptop"><div class="pleft">'
+        +'<div class="retailer">'+esc(p.brandName||p.retailer||"Retailer")+'</div>'
+        +'<div class="pname">'+esc(p.displayName||p.planName||"Plan")+'</div>'
+        +'<div class="badges">'+badges.join("")+'</div>'
+      +'</div>'
+      +'<div class="pcost"><div class="big">'+fmt$(cost)+'</div><div class="per">'+label+'</div>'+qtr+cond+'</div>'
+      +'</div>'
+      +'<div class="pbreak">'
+        +breakHtml
+        +saveVs
+      +'</div>'
+      +'<div class="pactions">'
+        +'<button class="lnk" onclick="toggleDetail('+i+')">Tariff detail ▾</button>'
+        +(p.planUrl?'<a class="lnk" href="'+esc(p.planUrl)+'" target="_blank" rel="noopener">Retailer page ↗</a>':'')
+        +'<label class="cmp"><input type="checkbox" onchange="toggleCompare('+i+',this.checked)" '+(STATE.compareSet.has(i)?'checked':'')+'> Compare</label>'
+      +'</div>'
+      +'<div class="detail" id="det'+i+'">'+detailHTML(p,e)+'</div>'
+    +'</div>';
+  }).join("");
+}
+
+function detailHTML(p,e){
+  if(STATE.fuel==="GAS") return gasDetail(p.gasContract, p);
+  if(STATE.fuel==="DUAL") return '<div style="font-weight:700;color:var(--navy);margin-bottom:6px">Electricity</div>'+elecDetail(p.electricityContract,p)
+    +'<div style="font-weight:700;color:var(--navy);margin:12px 0 6px">Gas</div>'+gasDetail(p.gasContract,p);
+  return elecDetail(p.electricityContract, p);
+}
+
+function elecDetail(c,p){
+  c=c||{}; const tp=(c.tariffPeriod&&c.tariffPeriod[0])||{};
+  let h="";
+  h+=drow("Offer type", (p.type||"MARKET"));
+  h+=drow("Pricing model", (c.pricingModel||"—").replace(/_/g," "));
+  if(c.benefitPeriod) h+=drow("Benefit period", c.benefitPeriod);
+  if(c.contractLength) h+=drow("Contract length", c.contractLength);
+  if(c.coolingOffDays) h+=drow("Cooling-off", c.coolingOffDays+" days");
+  h+=drow("Daily supply", '<b>'+fmtc(toDollars(tp.dailySupplyCharges,"supply"))+"/day</b> (published: "+esc(tp.dailySupplyCharges||"—")+")");
+  if(tp.timeOfUseRates && tp.timeOfUseRates.length){
+    h+='<div style="margin-top:8px"><table class="tou-tbl"><thead><tr><th>Band</th><th>Rate</th><th>When</th></tr></thead><tbody>';
+    tp.timeOfUseRates.forEach(r=>{
+      h+='<tr><td>'+esc(r.type||r.displayName||"")+'</td><td>'+fmtc(firstRate(r.rates))+'/kWh</td><td>'+esc((r.timeOfUse&&r.timeOfUse[0]?(r.timeOfUse[0].startTime||"")+"–"+(r.timeOfUse[0].endTime||""):r.description)||"")+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  } else if(tp.singleRate){
+    (tp.singleRate.rates||[]).forEach((rt,i)=>{
+      h+=drow(i===0?"Usage rate":"", fmtc(toDollars(rt.unitPrice,"usage"))+"/kWh"+(rt.volume?" (first "+rt.volume+" kWh)":""));
+    });
+  }
+  if(c.controlledLoad && c.controlledLoad.length){
+    const cl=c.controlledLoad[0], clTp=(cl.tariffPeriod&&cl.tariffPeriod[0])||cl;
+    const clRate = clTp.singleRate?firstRate(clTp.singleRate.rates):(clTp.rates?firstRate(clTp.rates):0);
+    h+=drow("Controlled load", fmtc(clRate)+"/kWh");
+  }
+  if(c.solarFeedInTariff && c.solarFeedInTariff.length){
+    h+=drow("Solar feed-in", fmtc(bestSolarFit(c.solarFeedInTariff))+"/kWh");
+  }
+  (c.discounts||[]).forEach(d=>{ h+=drow("Discount", esc(d.displayName||d.category||"")+" ("+(d.type||"")+")"); });
+  (c.fees||[]).forEach(fe=>{ h+=drow("Fee", esc(fe.type||"")+(fe.amount?" $"+fe.amount:"")+(fe.description?" — "+esc(fe.description):"")); });
+  if(c.eligibility && c.eligibility.length){ h+=drow("Eligibility", c.eligibility.map(el=>esc(el.information||el.description||el.type||"")).join("; ")); }
+  return h;
+}
+
+function gasDetail(c,p){
+  if(!c) return '<div class="hint">No gas contract on this plan.</div>';
+  const tp=(c.tariffPeriod&&c.tariffPeriod[0])||{};
+  let h="";
+  h+=drow("Pricing model", (c.pricingModel||"—").replace(/_/g," "));
+  if(c.benefitPeriod) h+=drow("Benefit period", c.benefitPeriod);
+  h+=drow("Daily supply", '<b>'+fmtc(toDollars(tp.dailySupplyCharges,"supply"))+"/day</b> (published: "+esc(tp.dailySupplyCharges||"—")+")");
+  const rates=(tp.singleRate&&tp.singleRate.rates)||tp.rates||[];
+  rates.forEach((rt,i)=>{
+    h+=drow(i===0?"Usage rate":"", fmtc(toDollars(rt.unitPrice,"usage"))+"/MJ"+(rt.volume?" (first "+rt.volume+" MJ)":""));
+  });
+  (c.discounts||[]).forEach(d=>{ h+=drow("Discount", esc(d.displayName||d.category||"")+" ("+(d.type||"")+")"); });
+  (c.fees||[]).forEach(fe=>{ h+=drow("Fee", esc(fe.type||"")+(fe.amount?" $"+fe.amount:"")); });
+  return h;
+}
+function drow(k,v){ return '<div class="drow"><span class="dk">'+esc(k)+'</span><span class="dv">'+v+'</span></div>'; }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m])); }
+
+window.toggleDetail=function(i){ document.getElementById("det"+i).classList.toggle("open"); };
+
+window.toggleCompare=function(i,on){
+  if(on){ if(STATE.compareSet.size>=4){ alert("Compare up to 4 plans at once."); run(); return; } STATE.compareSet.add(i); }
+  else STATE.compareSet.delete(i);
+  document.getElementById("cmpCount").textContent = STATE.compareSet.size;
+};
+
+/* ---------- Compare modal ---------- */
+function openCompare(){
+  const idxs=[...STATE.compareSet];
+  if(idxs.length<2){ alert("Select at least 2 plans to compare."); return; }
+  const items = idxs.map(i=>STATE.lastResults[i]).filter(Boolean);
+  const rateUnit = STATE.fuel==="GAS" ? "/MJ" : "/kWh";
+  const rowsDef = [
+    ["Retailer", r=>esc(r.plan.brandName||r.plan.retailer||"")],
+    ["Plan", r=>esc(r.plan.displayName||r.plan.planName||"")],
+    ["Est. annual cost", r=>'<span class="rn">'+fmt$(r.est.total)+'</span>', "min", r=>r.est.total],
+    ["Est. quarterly", r=>fmt$(r.est.total/4)],
+    ["With conditional disc.", r=>r.est.conditionalDisc>0?fmt$(r.est.totalCond):"—"]
+  ];
+  if(STATE.fuel==="DUAL"){
+    rowsDef.push(["Electricity /yr", r=>fmt$(r.est.elec.total), "min", r=>r.est.elec.total]);
+    rowsDef.push(["Gas /yr", r=>fmt$(r.est.gas.total), "min", r=>r.est.gas.total]);
+    rowsDef.push(["Elec usage rate", r=>fmtc(r.est.elec.usageRateAvg)+"/kWh"]);
+    rowsDef.push(["Gas usage rate", r=>fmtc(r.est.gas.usageRateAvg)+"/MJ"]);
+  } else {
+    rowsDef.push(["Daily supply", r=>fmtc(r.est.dailySupply)+"/day", "min", r=>r.est.dailySupply]);
+    rowsDef.push(["Avg usage rate", r=>fmtc(r.est.usageRateAvg)+rateUnit, "min", r=>r.est.usageRateAvg]);
+    rowsDef.push(["Supply /yr", r=>fmt$(r.est.supply)]);
+    rowsDef.push(["Usage /yr", r=>fmt$(r.est.usage)]);
+  }
+  if(STATE.fuel!=="GAS"){
+    rowsDef.push(["Time of use", r=>r.flags.isTou?"Yes":"No"]);
+    rowsDef.push(["Solar feed-in", r=>r.flags.hasSolarFit?"Yes":"No"]);
+  }
+  rowsDef.push(["Pay-on-time disc.", r=>r.flags.payOnTime?"Yes":"No"]);
+  rowsDef.push(["Exit fee", r=>r.flags.hasExitFee?"Yes":"No"]);
+  let html='<thead><tr><th></th>'+items.map(r=>'<th>'+esc(r.plan.brandName||"")+'</th>').join("")+'</tr></thead><tbody>';
+  rowsDef.forEach(def=>{
+    const [lbl,fn,winMode,valFn]=def;
+    let winIdx=-1;
+    if(winMode==="min"){ let best=Infinity; items.forEach((r,j)=>{const v=valFn(r); if(v<best){best=v;winIdx=j;}}); }
+    html+='<tr><td class="rowlbl">'+lbl+'</td>'+items.map((r,j)=>'<td'+(j===winIdx?' class="win"':'')+'>'+fn(r)+'</td>').join("")+'</tr>';
+  });
+  html+='</tbody>';
+  document.getElementById("cmpTable").innerHTML=html;
+  document.getElementById("cmpModal").classList.add("open");
+}
+
+/* ---------- CSV ---------- */
+function exportCSV(){
+  const rows=STATE.lastResults;
+  if(!rows.length){ alert("No results to export."); return; }
+  const head=["Rank","Retailer","Plan","Fuel","Offer","Est annual $","Est quarterly $","With conditional $","Daily supply c/day","Avg usage rate (c/kWh or c/MJ)","Solar credit $","Time of use","Solar FiT","Pay-on-time disc","Exit fee"];
+  const lines=[head.join(",")];
+  rows.forEach((r,i)=>{
+    const e=r.est,fl=r.flags,p=r.plan;
+    const solar = (e.solarCredit||(e.elec&&e.elec.solarCredit)||0);
+    lines.push([
+      i+1, q(p.brandName||p.retailer||""), q(p.displayName||p.planName||""), STATE.fuel, p.type||"MARKET",
+      Math.round(e.total), Math.round(e.total/4), e.conditionalDisc>0?Math.round(e.totalCond):"",
+      (e.dailySupply*100).toFixed(2), (e.usageRateAvg*100).toFixed(2),
+      solar>0?Math.round(solar):"", fl.isTou?"Y":"N", fl.hasSolarFit?"Y":"N",
+      fl.payOnTime?"Y":"N", fl.hasExitFee?"Y":"N"
+    ].join(","));
+  });
+  const blob=new Blob([lines.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="cyber-financial-energy-comparison-"+new Date().toISOString().slice(0,10)+".csv";
+  a.click();
+}
+function q(s){ return '"'+String(s).replace(/"/g,'""')+'"'; }
+
+/* ---------- Client report ---------- */
+function generateReport(){
+  const rows=STATE.lastResults.slice(0,10);
+  if(!rows.length){ alert("No results to report."); return; }
+  const u=readUsage(), f=currentFilters();
+  const client=document.getElementById("rClient").value||"—";
+  const adviser=document.getElementById("rAdviser").value||"Cyber Financial Pty Ltd";
+  const notes=document.getElementById("rNotes").value;
+  const date=new Date().toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"});
+  const fuelWord = STATE.fuel==="DUAL"?"Electricity + Gas":STATE.fuel==="GAS"?"Gas":"Electricity";
+  const assume=[f.state,(f.cust==="BUSINESS"?"Business":"Residential"),
+    STATE.fuel!=="GAS" ? u.annualKwh.toLocaleString("en-AU")+" kWh/yr" : null,
+    STATE.fuel!=="GAS" ? (u.hasTou?"Time-of-use "+u.pkPct+"/"+u.shPct+"/"+u.opPct:"Single rate") : null,
+    STATE.fuel!=="ELECTRICITY" ? u.annualMj.toLocaleString("en-AU")+" MJ/yr gas" : null,
+    (STATE.fuel!=="GAS"&&u.hasSolar)?u.solarKwh.toLocaleString("en-AU")+" kWh solar export":null,
+    (STATE.fuel!=="GAS"&&u.greenPct>0)?u.greenPct+"% GreenPower":null].filter(Boolean).join(" · ");
+  const trs=rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(r.plan.brandName||"")+'</td><td>'+esc(r.plan.displayName||"")+'</td><td>'+esc(r.plan.type||"MARKET")+'</td><td style="text-align:right">'+fmt$(r.est.total)+'</td><td style="text-align:right">'+fmt$(r.est.total/4)+'</td></tr>').join("");
+  const w=window.open("","_blank");
+  w.document.write('<html><head><title>'+esc(fuelWord)+' Plan Comparison — '+esc(client)+'</title><style>'
+    +'body{font-family:Georgia,serif;color:#0e1b2e;max-width:800px;margin:30px auto;padding:0 24px}'
+    +'h1{color:#0f2846;font-size:22px;border-bottom:3px solid #d5313b;padding-bottom:8px}'
+    +'.meta{color:#5b6b80;font-size:13px;margin:14px 0}table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13px}'
+    +'th,td{padding:8px 10px;border-bottom:1px solid #ddd;text-align:left}th{background:#0f2846;color:#fff}'
+    +'tr:first-child td{font-weight:bold}.disc{font-size:11px;color:#5b6b80;border-top:1px solid #ddd;padding-top:12px;margin-top:24px;line-height:1.5}'
+    +'.box{background:#f5f7fa;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;font-size:13px}</style></head><body>'
+    +'<h1>'+esc(fuelWord)+' Plan Comparison</h1>'
+    +'<div class="meta"><b>Prepared for:</b> '+esc(client)+'<br><b>Prepared by:</b> '+esc(adviser)+'<br><b>Date:</b> '+date+'</div>'
+    +'<div class="box"><b>Usage assumptions:</b> '+esc(assume)+(notes?'<br><b>Notes:</b> '+esc(notes):"")+'</div>'
+    +'<table><thead><tr><th>#</th><th>Retailer</th><th>Plan</th><th>Offer</th><th style="text-align:right">Est. /yr</th><th style="text-align:right">Est. /qtr</th></tr></thead><tbody>'+trs+'</tbody></table>'
+    +'<div class="disc"><b>Important:</b> Estimates only, based on the usage assumptions above and generic tariffs published by the AER (and Victoria’s DEECA) under the Consumer Data Right. Not a quote. Figures include guaranteed discounts and solar credits; conditional discounts depend on meeting the retailer’s conditions. This is factual comparison information, not personal financial or energy advice. Confirm current pricing on each retailer’s Basic Plan Information Document before switching. Cyber Financial Pty Ltd (AR 413231) · CAR 413232 under Estrala Capital Pty Ltd (AFSL 485923).</div>'
+    +'</body></html>');
+  w.document.close();
+  document.getElementById("repModal").classList.remove("open");
+  setTimeout(()=>w.print(),400);
+}
+
+/* ============================================================
+   DATA LOADING
+   ============================================================ */
+async function loadData(){
+  if(CONFIG.RAW_BASE){
+    try{
+      const idx=await fetch(CONFIG.RAW_BASE.replace(/\/$/,"")+"/index.json").then(r=>r.json());
+      let all=[];
+      if(idx.shards){
+        for(const sh of idx.shards){
+          const d=await fetch(CONFIG.RAW_BASE.replace(/\/$/,"")+"/"+sh).then(r=>r.json());
+          all=all.concat(d.plans||d);
+        }
+      } else if(Array.isArray(idx)){ all=idx; } else if(idx.plans){ all=idx.plans; }
+      STATE.plans=all;
+      document.getElementById("modeChip").textContent="Harvested feed · "+all.length+" plans";
+      return;
+    }catch(err){
+      console.warn("Harvested feed unavailable, using sample data.",err);
+      document.getElementById("modeChip").textContent="Sample data (feed unreachable)";
+    }
+  }
+  STATE.plans=SAMPLE_PLANS;
+}
+
+/* ============================================================
+   SAMPLE DATA — realistic FY25/26-style plans across retailers,
+   modelled on the CDS EnergyPlanDetail schema. Prices in CENTS
+   as per live AER feeds (auto-normalised to $ by the engine).
+   Illustrative only — not live quotes.
+   ============================================================ */
+const SAMPLE_PLANS = [
+  mk("AGL","Value Saver","QLD",["Energex"],"MARKET","SINGLE_RATE",{supply:"108.90",usage:"27.61",benefit:"12 months",solar:"5.0",disc:[{n:"Pay on time",t:"CONDITIONAL",cat:"PAY_ON_TIME",m:"percentOfBill",r:"3"}]}),
+  mk("Origin Energy","Everyday Rewards Member","QLD",["Energex"],"MARKET","SINGLE_RATE",{supply:"104.50",usage:"26.90",benefit:"Ongoing",solar:"4.0"}),
+  mk("EnergyAustralia","Total Plan Home","QLD",["Energex"],"MARKET","SINGLE_RATE",{supply:"116.60",usage:"25.85",benefit:"Ongoing",solar:"6.6",exit:true}),
+  mk("Red Energy","Living Energy Saver","QLD",["Energex"],"MARKET","SINGLE_RATE",{supply:"98.40",usage:"29.15",benefit:"Ongoing",solar:"6.0"}),
+  mk("Alinta Energy","HomeDeal","QLD",["Energex"],"MARKET","SINGLE_RATE",{supply:"101.20",usage:"25.30",benefit:"Ongoing",solar:"3.0",disc:[{n:"Direct debit",t:"GUARANTEED",cat:"OTHER",m:"percentOfBill",r:"2"}]}),
+  mk("GloBird Energy","GLOSAVE","QLD",["Energex"],"MARKET","SINGLE_RATE",{supply:"95.70",usage:"24.75",benefit:"Ongoing",solar:"3.3"}),
+  mk("Ergon Energy","Standard Retail (Regional)","QLD",["Ergon Energy"],"STANDING","SINGLE_RATE",{supply:"124.30",usage:"24.09",benefit:"Ongoing",solar:"12.0"}),
+  mk("AGL","Time of Use Saver","QLD",["Energex"],"MARKET","TIME_OF_USE",{supply:"110.30",tou:{PEAK:"41.20",SHOULDER:"27.80",OFF_PEAK:"19.40"},benefit:"12 months",solar:"5.0"}),
+  mk("Origin Energy","Solar Boost Plus","QLD",["Energex"],"MARKET","SINGLE_RATE",{supply:"112.00",usage:"28.40",benefit:"Ongoing",solar:"10.0"}),
+  mk("Nectr","Sundown Saver","QLD",["Energex"],"MARKET","TIME_OF_USE",{supply:"99.00",tou:{PEAK:"39.60",SHOULDER:"26.40",OFF_PEAK:"17.90"},benefit:"Ongoing",solar:"8.0"}),
+  // NSW
+  mk("AGL","Value Saver","NSW",["Ausgrid"],"MARKET","SINGLE_RATE",{supply:"98.45",usage:"28.60",benefit:"12 months",solar:"5.0",disc:[{n:"Pay on time",t:"CONDITIONAL",cat:"PAY_ON_TIME",m:"percentOfBill",r:"4"}]}),
+  mk("Origin Energy","Everyday Rewards Member","NSW",["Ausgrid"],"MARKET","SINGLE_RATE",{supply:"91.30",usage:"29.15",benefit:"Ongoing",solar:"6.0"}),
+  mk("Red Energy","Living Energy Saver","NSW",["Endeavour Energy"],"MARKET","SINGLE_RATE",{supply:"94.20",usage:"27.40",benefit:"Ongoing",solar:"6.0"}),
+  mk("EnergyAustralia","Total Plan Home","NSW",["Ausgrid"],"MARKET","TIME_OF_USE",{supply:"102.10",tou:{PEAK:"52.80",SHOULDER:"22.10",OFF_PEAK:"18.60"},benefit:"Ongoing",solar:"6.6"}),
+  // VIC
+  mk("Powershop","Shopper Market Offer","VIC",["CitiPower"],"MARKET","SINGLE_RATE",{supply:"88.20",usage:"24.90",benefit:"Ongoing",solar:"4.9"}),
+  mk("Momentum Energy","SmilePower Flexi","VIC",["Powercor"],"MARKET","SINGLE_RATE",{supply:"92.60",usage:"23.80",benefit:"Ongoing",solar:"3.3"}),
+  mk("AGL","Value Saver","VIC",["United Energy"],"MARKET","TIME_OF_USE",{supply:"95.40",tou:{PEAK:"33.10",SHOULDER:"25.20",OFF_PEAK:"16.80"},benefit:"12 months",solar:"5.2"}),
+  mk("Red Energy","Living Energy Saver","VIC",["Jemena"],"MARKET","SINGLE_RATE",{supply:"90.10",usage:"25.60",benefit:"Ongoing",solar:"5.0"}),
+  // SA
+  mk("AGL","Value Saver","SA",["SA Power Networks"],"MARKET","SINGLE_RATE",{supply:"101.20",usage:"39.80",benefit:"12 months",solar:"4.5"}),
+  mk("Origin Energy","Everyday Rewards Member","SA",["SA Power Networks"],"MARKET","SINGLE_RATE",{supply:"98.90",usage:"41.20",benefit:"Ongoing",solar:"3.0"}),
+  // ACT
+  mk("ActewAGL","Home Plan","ACT",["Evoenergy"],"STANDING","SINGLE_RATE",{supply:"105.60",usage:"24.30",benefit:"Ongoing",solar:"8.0"}),
+  // TAS
+  mk("Aurora Energy","Tariff 31/93","TAS",["TasNetworks"],"STANDING","SINGLE_RATE",{supply:"113.80",usage:"29.10",benefit:"Ongoing",solar:"8.9"}),
+
+  // ---- Dual fuel (electricity + gas on one plan) ----
+  mk("AGL","Value Saver Dual","VIC",["United Energy"],"MARKET","SINGLE_RATE",{supply:"95.40",usage:"24.20",benefit:"12 months",solar:"5.2",
+     gas:{supply:"72.50",blocks:[["4.35",40],["3.10"]],disc:[{n:"Direct debit",t:"GUARANTEED",cat:"OTHER",m:"percentOfBill",r:"2"}]}}),
+  mk("Origin Energy","Everyday Rewards Dual","VIC",["Powercor"],"MARKET","SINGLE_RATE",{supply:"92.60",usage:"23.90",benefit:"Ongoing",solar:"3.3",
+     gas:{supply:"69.80",blocks:[["4.60",45],["3.28"]]}}),
+  mk("EnergyAustralia","Total Plan Dual","NSW",["Ausgrid"],"MARKET","SINGLE_RATE",{supply:"98.20",usage:"28.10",benefit:"Ongoing",solar:"6.6",
+     gas:{supply:"81.40",rate:"4.85",disc:[{n:"Pay on time",t:"CONDITIONAL",cat:"PAY_ON_TIME",m:"percentOfBill",r:"3"}]}}),
+  mk("AGL","Value Saver Dual","SA",["SA Power Networks"],"MARKET","SINGLE_RATE",{supply:"101.20",usage:"39.10",benefit:"12 months",solar:"4.5",
+     gas:{supply:"84.60",rate:"5.35"}}),
+  mk("Alinta Energy","HomeDeal Dual","VIC",["AusNet Services"],"MARKET","SINGLE_RATE",{supply:"94.10",usage:"23.40",benefit:"Ongoing",solar:"3.0",
+     gas:{supply:"66.90",blocks:[["4.10",40],["2.95"]],disc:[{n:"Direct debit",t:"GUARANTEED",cat:"OTHER",m:"percentOfBill",r:"3"}]}}),
+
+  // ---- Gas only ----
+  mkGasOnly("AGL","Value Saver Gas","VIC",["Multinet Gas"],"MARKET",{supply:"71.20",blocks:[["4.40",40],["3.05"]],benefit:"Ongoing"}),
+  mkGasOnly("Origin Energy","Everyday Rewards Gas","VIC",["AusNet Gas"],"MARKET",{supply:"68.50",blocks:[["4.55",45],["3.20"]]}),
+  mkGasOnly("EnergyAustralia","Total Plan Gas","VIC",["Australian Gas Networks"],"MARKET",{supply:"70.10",rate:"3.95"}),
+  mkGasOnly("Momentum Energy","SmilePower Gas","VIC",["Multinet Gas"],"MARKET",{supply:"64.80",rate:"3.70",disc:[{n:"Guaranteed discount",t:"GUARANTEED",cat:"OTHER",m:"percentOfBill",r:"5"}]}),
+  mkGasOnly("AGL","Value Saver Gas","NSW",["Jemena Gas"],"MARKET",{supply:"83.60",rate:"4.90"}),
+  mkGasOnly("Origin Energy","Everyday Rewards Gas","SA",["Australian Gas Networks"],"MARKET",{supply:"86.20",rate:"5.55"}),
+  mkGasOnly("Alinta Energy","HomeDeal Gas","QLD",["Australian Gas Networks"],"MARKET",{supply:"88.40",rate:"6.10"})
+];
+
+function mk(brand,name,state,dists,type,model,o){
+  const tp={ displayName:"All year", dailySupplyCharges:o.supply, rateBlockUType: model==="TIME_OF_USE"?"timeOfUseRates":"singleRate" };
+  if(model==="TIME_OF_USE"){
+    tp.timeOfUseRates=[
+      {type:"PEAK",displayName:"Peak",rates:[{unitPrice:o.tou.PEAK,measureUnit:"KWH"}],timeOfUse:[{days:["MON","TUE","WED","THU","FRI"],startTime:"15:00",endTime:"21:00"}],description:"Weekday afternoons/evenings"},
+      {type:"SHOULDER",displayName:"Shoulder",rates:[{unitPrice:o.tou.SHOULDER,measureUnit:"KWH"}],timeOfUse:[{days:["MON","TUE","WED","THU","FRI"],startTime:"07:00",endTime:"15:00"}],description:"Weekday mornings/daytime"},
+      {type:"OFF_PEAK",displayName:"Off-peak",rates:[{unitPrice:o.tou.OFF_PEAK,measureUnit:"KWH"}],timeOfUse:[{days:["MON","TUE","WED","THU","FRI","SAT","SUN"],startTime:"22:00",endTime:"07:00"}],description:"Overnight"}
+    ];
+  } else {
+    tp.singleRate={displayName:"Anytime",period:"P1D",rates:[{unitPrice:o.usage,measureUnit:"KWH"}]};
+  }
+  const c={
+    pricingModel:model, isFixed:false, benefitPeriod:o.benefit,
+    tariffPeriod:[tp],
+    solarFeedInTariff: o.solar? [{displayName:"Solar feed-in",scheme:"OTHER",payerType:"RETAILER",tariffUType:"singleTariff",singleTariff:{rates:[{unitPrice:o.solar,measureUnit:"KWH"}]}}] : [],
+    discounts: (o.disc||[]).map(d=>({displayName:d.n,type:d.t,category:d.cat,methodUType:d.m,percentOfBill:d.m==="percentOfBill"?{rate:d.r}:undefined,percentOfUse:d.m==="percentOfUse"?{rate:d.r}:undefined,fixedAmount:d.m==="fixedAmount"?{amount:d.r}:undefined})),
+    fees: o.exit? [{type:"EXIT",term:"FIXED",amount:"22.00",description:"Early termination fee"}] : [],
+    eligibility: type==="STANDING"? [{type:"OTHER",information:"Default standing offer — available to all"}] : []
+  };
+  const gasContract = o.gas ? mkGasContract(o.gas, o.benefit) : null;
+  const fuelType = gasContract ? "DUAL" : "ELECTRICITY";
+  return {
+    planId: (brand+name+state).replace(/\s+/g,"").toUpperCase().slice(0,24),
+    brandName:brand, retailer:brand, displayName:name, planName:name,
+    fuelType:fuelType, type:type, customerType:"RESIDENTIAL",
+    geography:{state:state, distributors:dists},
+    electricityContract:c,
+    gasContract:gasContract,
+    planUrl:null
+  };
+}
+
+/* Build a gas contract. g = {supply, rate | blocks:[[price,volMJ],[price]], disc} */
+function mkGasContract(g, benefit){
+  let rates;
+  if(g.blocks){ rates = g.blocks.map(b=>({unitPrice:b[0], measureUnit:"MJ", volume:b[1]})); }
+  else { rates = [{unitPrice:g.rate, measureUnit:"MJ"}]; }
+  return {
+    pricingModel:"SINGLE_RATE", benefitPeriod:benefit,
+    tariffPeriod:[{ displayName:"All year", dailySupplyCharges:g.supply, rateBlockUType:"singleRate",
+      singleRate:{ displayName:"Usage", period:"P1D", rates:rates } }],
+    discounts: (g.disc||[]).map(d=>({displayName:d.n,type:d.t,category:d.cat,methodUType:d.m,percentOfBill:d.m==="percentOfBill"?{rate:d.r}:undefined})),
+    fees:[], eligibility:[]
+  };
+}
+
+/* Standalone gas-only plan. */
+function mkGasOnly(brand,name,state,dists,type,g){
+  return {
+    planId:(brand+name+state+"GAS").replace(/\s+/g,"").toUpperCase().slice(0,24),
+    brandName:brand, retailer:brand, displayName:name, planName:name,
+    fuelType:"GAS", type:type, customerType:"RESIDENTIAL",
+    geography:{state:state, distributors:dists},
+    electricityContract:null,
+    gasContract:mkGasContract(g, g.benefit||"Ongoing"),
+    planUrl:null
+  };
+}
+
+/* ============================================================
+   UI WIRING
+   ============================================================ */
+function wire(){
+  const g=id=>document.getElementById(id);
+  // chip groups
+  chipGroup("fuelChips","fuel", v=>{ STATE.fuel=v; applyFuelVisibility(); run(); });
+  chipGroup("custChips","cust", v=>STATE.cust=v);
+  chipGroup("greenChips","green", v=>STATE.green=+v);
+  chipGroup("offerChips","offer", v=>STATE.offer=v);
+  chipGroup("sizeChips","kwh", v=>{ g("annualKwh").value=v; });
+  chipGroup("gasSizeChips","mj", v=>{ g("annualMj").value=v; });
+  chipGroup("periodChips","period", v=>{ STATE.period=v; run(); });
+
+  g("hasTou").addEventListener("change",e=>{ g("touSplit").style.display=e.target.checked?"block":"none"; });
+  g("hasCl").addEventListener("change",e=>{ g("clWrap").style.display=e.target.checked?"block":"none"; });
+  g("hasSolar").addEventListener("change",e=>{ g("solarWrap").style.display=e.target.checked?"block":"none"; });
+
+  g("postcode").addEventListener("input",onPostcode);
+  g("state").addEventListener("change",()=>{ fillDistributors(); });
+  g("applyBtn").addEventListener("click",run);
+  g("sortSel").addEventListener("change",run);
+  g("resetBtn").addEventListener("click",resetFilters);
+
+  g("compareBtn").addEventListener("click",openCompare);
+  g("csvBtn").addEventListener("click",exportCSV);
+  g("reportBtn").addEventListener("click",()=>g("repModal").classList.add("open"));
+  g("cmpClose").addEventListener("click",()=>g("cmpModal").classList.remove("open"));
+  g("repClose").addEventListener("click",()=>g("repModal").classList.remove("open"));
+  g("repGo").addEventListener("click",generateReport);
+  g("cmpModal").addEventListener("click",e=>{ if(e.target.id==="cmpModal") e.target.classList.remove("open"); });
+  g("repModal").addEventListener("click",e=>{ if(e.target.id==="repModal") e.target.classList.remove("open"); });
+
+  g("menuBtn").addEventListener("click",()=>g("sidebar").classList.toggle("open"));
+}
+
+/* Show the usage inputs relevant to the selected fuel. */
+function applyFuelVisibility(){
+  const g=id=>document.getElementById(id);
+  const showElec = STATE.fuel!=="GAS";
+  const showGas  = STATE.fuel!=="ELECTRICITY";
+  g("elecUsageGrp").style.display = showElec?"block":"none";
+  g("solarGrp").style.display     = showElec?"block":"none";
+  g("gasUsageGrp").style.display  = showGas?"block":"none";
+}
+
+/* Postcode -> state (+ distributor where unambiguous). */
+function onPostcode(e){
+  const hint=document.getElementById("pcHint");
+  const res=lookupPostcode(e.target.value);
+  if(!res){ hint.textContent="Enter your postcode to set your state and network automatically."; hint.style.color=""; return; }
+  if(res.confidence==="outside"){ hint.textContent=res.note; hint.style.color="var(--red)"; return; }
+  document.getElementById("state").value=res.state;
+  fillDistributors();
+  if(res.distributor){ document.getElementById("distributor").value=res.distributor; }
+  const label = {exact:"Set to",suggested:"Likely",state:"Set to"}[res.confidence]||"Set to";
+  hint.innerHTML = label+" <b>"+res.state+(res.distributor?" · "+res.distributor:"")+"</b>"+
+    (res.confidence==="suggested"?" (verify your network)":"")+(res.note?" — "+res.note:"");
+  hint.style.color="var(--green)";
+  run();
+}
+
+function chipGroup(containerId, attr, cb){
+  const cont=document.getElementById(containerId);
+  cont.addEventListener("click",e=>{
+    const chip=e.target.closest(".chip"); if(!chip) return;
+    cont.querySelectorAll(".chip").forEach(x=>x.classList.remove("on"));
+    chip.classList.add("on");
+    cb(chip.dataset[attr]);
+  });
+}
+
+function fillDistributors(){
+  const st=document.getElementById("state").value;
+  const sel=document.getElementById("distributor");
+  sel.innerHTML='<option value="">All networks in state</option>'+
+    (DISTRIBUTORS[st]||[]).map(d=>'<option value="'+d+'">'+d+'</option>').join("");
+}
+
+function resetFilters(){
+  ["fNoExit","fNoLock","fPayOnTime","fSolar","hasTou","hasCl","hasSolar"].forEach(id=>document.getElementById(id).checked=false);
+  document.getElementById("touSplit").style.display="none";
+  document.getElementById("clWrap").style.display="none";
+  document.getElementById("solarWrap").style.display="none";
+  STATE.offer="ALL"; STATE.green=0;
+  ["offerChips","greenChips"].forEach(cid=>{const c=document.getElementById(cid);c.querySelectorAll(".chip").forEach((x,i)=>x.classList.toggle("on",i===0));});
+  document.getElementById("distributor").value="";
+  run();
+}
+
+/* ---------- init ---------- */
+(async function init(){
+  wire();
+  applyFuelVisibility();
+  fillDistributors();
+  document.getElementById("results").innerHTML='<div class="loading"><div class="spin"></div>Loading plan data…</div>';
+  await loadData();
+  run();
+})();
+</script>
+</body>
+</html>
