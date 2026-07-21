@@ -41,7 +41,7 @@ discover: 0
 ea-connect: 0
 evergy: 0
 flipped: 107 listed, 107 usable
-flow-power: 54 listed, 54 usable
+flow-power: 68 listed, 68 usable
 future-x: 30 listed, 30 usable
 gee-energy: 108 listed, 108 usable
 glow-power: 0
