@@ -1,7 +1,7 @@
 arcline: 114 listed, 114 usable
-energy-locals: 308 listed, 308 usable
+energy-locals: 307 listed, 307 usable
 aurora: 20 listed, 20 usable
-origin: 3595 listed, 3595 usable
+origin: 3674 listed, 3674 usable
 agl: 1343 listed, 1343 usable
 energyaustralia: 1122 listed, 1122 usable
 engie: 2450 listed, 2450 usable
