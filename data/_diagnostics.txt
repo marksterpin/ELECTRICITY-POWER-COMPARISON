@@ -3,7 +3,7 @@ energy-locals: 307 listed, 307 usable
 aurora: 20 listed, 20 usable
 origin: 3586 listed, 3586 usable
 agl: 1343 listed, 1343 usable
-energyaustralia: 1122 listed, 1122 usable
+energyaustralia: 1125 listed, 1125 usable
 engie: 2416 listed, 2416 usable
 alinta: 493 listed, 493 usable
 sumo-power: 694 listed, 694 usable
