@@ -1,1 +1,78 @@
 arcline: 58 listed, 58 usable
+energy-locals: 301 listed, 301 usable
+aurora: 20 listed, 20 usable
+origin: 3777 listed, 3777 usable
+agl: 1276 listed, 1276 usable
+energyaustralia: 1143 listed, 1143 usable
+engie: 2414 listed, 2414 usable
+alinta: 449 listed, 449 usable
+sumo-power: 570 listed, 570 usable
+kogan: 265 listed, 265 usable
+powershop: 482 listed, 482 usable
+actewagl: 188 listed, 188 usable
+diamond: 205 listed, 205 usable
+covau: 382 listed, 382 usable
+next-business: 321 listed, 321 usable
+1st-energy: 296 listed, 296 usable
+ovo-energy: 375 listed, 375 usable
+blue-nrg: 291 listed, 291 usable
+nectr: 229 listed, 229 usable
+dodo: 132 listed, 132 usable
+momentum: 855 listed, 855 usable
+pacific-blue: 0
+tango: 236 listed, 236 usable
+globird: 538 listed, 538 usable
+lumo: 175 listed, 175 usable
+red-energy: 1705 listed, 1705 usable
+amber: 250 listed, 250 usable
+ergon: 36 listed, 36 usable
+active-utilities: 0
+altogether: 0
+ampol: 0
+arc-energy: 6 listed, 6 usable
+arcstream: 0
+besy: 0
+brighte: 0
+cleanco: 0
+cleanpeak: 0
+coles: 0
+cpe-mascot: 0
+discover: 0
+ea-connect: 0
+evergy: 0
+flipped: 130 listed, 130 usable
+flow-power: 136 listed, 136 usable
+future-x: 30 listed, 30 usable
+gee-energy: 108 listed, 108 usable
+glow-power: 0
+humenergy: 0
+igeno: 0
+radian: 20 listed, 20 usable
+locality-planning: 0
+localvolts: 0
+macarthur: 0
+macquarie: 0
+metered-energy: 0
+microgrid: 0
+perpetual: 24 listed, 24 usable
+powerhub: 0
+powow: 0
+real-utilities: 4 listed, 4 usable
+savant: 0
+seene: 0
+shell-energy: 0
+smart-energy: 0
+solstice: 65 listed, 65 usable
+stanwell: 0
+telstra-energy: 0
+tesla: 0
+yes-energy: 0
+zen-energy: 0
+aseno: 0
+commander: 0
+energy-locals-urban: 14 listed, 14 usable
+erc-energy: 40 listed, 40 usable
+silver-asset: 0
+veolia: 0
+winconnect: 0
+io-energy: 0
