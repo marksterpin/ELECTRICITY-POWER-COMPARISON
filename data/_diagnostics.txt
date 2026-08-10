@@ -1,21 +1,21 @@
 arcline: 58 listed, 58 usable
 energy-locals: 301 listed, 301 usable
 aurora: 20 listed, 20 usable
-origin: 3777 listed, 3777 usable
+origin: 3352 listed, 3352 usable
 agl: 1276 listed, 1276 usable
 energyaustralia: 1143 listed, 1143 usable
 engie: 2414 listed, 2414 usable
-alinta: 449 listed, 449 usable
-sumo-power: 570 listed, 570 usable
+alinta: 443 listed, 443 usable
+sumo-power: 620 listed, 620 usable
 kogan: 265 listed, 265 usable
 powershop: 482 listed, 482 usable
 actewagl: 188 listed, 188 usable
 diamond: 205 listed, 205 usable
 covau: 382 listed, 382 usable
-next-business: 321 listed, 321 usable
+next-business: 455 listed, 455 usable
 1st-energy: 296 listed, 296 usable
 ovo-energy: 375 listed, 375 usable
-blue-nrg: 291 listed, 291 usable
+blue-nrg: 347 listed, 347 usable
 nectr: 229 listed, 229 usable
 dodo: 132 listed, 132 usable
 momentum: 855 listed, 855 usable
@@ -40,7 +40,7 @@ cpe-mascot: 0
 discover: 0
 ea-connect: 0
 evergy: 0
-flipped: 130 listed, 130 usable
+flipped: 116 listed, 116 usable
 flow-power: 136 listed, 136 usable
 future-x: 30 listed, 30 usable
 gee-energy: 108 listed, 108 usable
