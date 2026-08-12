@@ -7,12 +7,12 @@ energyaustralia: 1143 listed, 1143 usable
 engie: 2414 listed, 2414 usable
 alinta: 443 listed, 443 usable
 sumo-power: 578 listed, 578 usable
-kogan: 265 listed, 265 usable
-powershop: 482 listed, 482 usable
+kogan: 313 listed, 313 usable
+powershop: 530 listed, 530 usable
 actewagl: 188 listed, 188 usable
 diamond: 205 listed, 205 usable
 covau: 382 listed, 382 usable
-next-business: 455 listed, 455 usable
+next-business: 321 listed, 321 usable
 1st-energy: 296 listed, 296 usable
 ovo-energy: 375 listed, 375 usable
 blue-nrg: 347 listed, 347 usable
