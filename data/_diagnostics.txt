@@ -9,7 +9,7 @@ alinta: 443 listed, 443 usable
 sumo-power: 578 listed, 578 usable
 kogan: 265 listed, 265 usable
 powershop: 482 listed, 482 usable
-actewagl: 184 listed, 184 usable
+actewagl: 192 listed, 192 usable
 diamond: 205 listed, 205 usable
 covau: 392 listed, 392 usable
 next-business: 455 listed, 455 usable
@@ -40,8 +40,8 @@ cpe-mascot: 0
 discover: 0
 ea-connect: 0
 evergy: 0
-flipped: 152 listed, 152 usable
-flow-power: 220 listed, 220 usable
+flipped: 184 listed, 184 usable
+flow-power: 360 listed, 360 usable
 future-x: 30 listed, 30 usable
 gee-energy: 108 listed, 108 usable
 glow-power: 0
