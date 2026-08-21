@@ -1,5 +1,5 @@
 arcline: 58 listed, 58 usable
-energy-locals: 301 listed, 301 usable
+energy-locals: 450 listed, 450 usable
 aurora: 60 listed, 60 usable
 origin: 3674 listed, 3674 usable
 agl: 1276 listed, 1276 usable
