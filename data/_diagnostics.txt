@@ -13,12 +13,12 @@ actewagl: 191 listed, 191 usable
 diamond: 205 listed, 205 usable
 covau: 392 listed, 392 usable
 next-business: 455 listed, 455 usable
-1st-energy: 296 listed, 296 usable
+1st-energy: 331 listed, 331 usable
 ovo-energy: 357 listed, 357 usable
 blue-nrg: 347 listed, 347 usable
 nectr: 229 listed, 229 usable
 dodo: 132 listed, 132 usable
-momentum: 859 listed, 859 usable
+momentum: 910 listed, 910 usable
 pacific-blue: 0
 tango: 236 listed, 236 usable
 globird: 538 listed, 538 usable
