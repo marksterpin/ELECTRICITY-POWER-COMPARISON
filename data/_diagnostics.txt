@@ -9,7 +9,7 @@ alinta: 449 listed, 449 usable
 sumo-power: 626 listed, 626 usable
 kogan: 265 listed, 265 usable
 powershop: 482 listed, 482 usable
-actewagl: 199 listed, 199 usable
+actewagl: 211 listed, 211 usable
 diamond: 205 listed, 205 usable
 covau: 399 listed, 399 usable
 next-business: 441 listed, 441 usable
