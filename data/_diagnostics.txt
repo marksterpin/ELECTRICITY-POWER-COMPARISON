@@ -18,10 +18,10 @@ ovo-energy: 357 listed, 357 usable
 blue-nrg: 407 listed, 407 usable
 nectr: 258 listed, 258 usable
 dodo: 130 listed, 130 usable
-momentum: 930 listed, 930 usable
+momentum: 950 listed, 950 usable
 pacific-blue: 0
 tango: 236 listed, 236 usable
-globird: 508 listed, 508 usable
+globird: 510 listed, 510 usable
 lumo: 175 listed, 175 usable
 red-energy: 1822 listed, 1822 usable
 amber: 250 listed, 250 usable
