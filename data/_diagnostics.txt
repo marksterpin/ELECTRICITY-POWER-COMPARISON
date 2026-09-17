@@ -1,7 +1,7 @@
 arcline: 58 listed, 58 usable
 energy-locals: 187 listed, 187 usable
 aurora: 20 listed, 20 usable
-origin: 3494 listed, 3494 usable
+origin: 3478 listed, 3478 usable
 agl: 1276 listed, 1276 usable
 energyaustralia: 1119 listed, 1119 usable
 engie: 2518 listed, 2518 usable
@@ -42,7 +42,7 @@ ea-connect: 0
 evergy: 0
 flipped: 188 listed, 188 usable
 flow-power: 360 listed, 360 usable
-future-x: 30 listed, 30 usable
+future-x: 85 listed, 85 usable
 gee-energy: 108 listed, 108 usable
 glow-power: 0
 humenergy: 0
