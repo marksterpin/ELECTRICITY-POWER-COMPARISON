@@ -6,7 +6,7 @@ agl: 1282 listed, 1282 usable
 energyaustralia: 1119 listed, 1119 usable
 engie: 2518 listed, 2518 usable
 alinta: 526 listed, 526 usable
-sumo-power: 606 listed, 606 usable
+sumo-power: 641 listed, 641 usable
 kogan: 265 listed, 265 usable
 powershop: 482 listed, 482 usable
 actewagl: 227 listed, 227 usable
