@@ -11,7 +11,7 @@ kogan: 265 listed, 265 usable
 powershop: 482 listed, 482 usable
 actewagl: 227 listed, 227 usable
 diamond: 205 listed, 205 usable
-covau: 409 listed, 409 usable
+covau: 396 listed, 396 usable
 next-business: 453 listed, 453 usable
 1st-energy: 391 listed, 391 usable
 ovo-energy: 357 listed, 357 usable
