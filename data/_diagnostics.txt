@@ -11,7 +11,7 @@ kogan: 265 listed, 265 usable
 powershop: 482 listed, 482 usable
 actewagl: 227 listed, 227 usable
 diamond: 205 listed, 205 usable
-covau: 396 listed, 396 usable
+covau: 477 listed, 477 usable
 next-business: 458 listed, 458 usable
 1st-energy: 391 listed, 391 usable
 ovo-energy: 357 listed, 357 usable
@@ -21,7 +21,7 @@ dodo: 130 listed, 130 usable
 momentum: 975 listed, 975 usable
 pacific-blue: 0
 tango: 209 listed, 209 usable
-globird: 487 listed, 487 usable
+globird: 357 listed, 357 usable
 lumo: 175 listed, 175 usable
 red-energy: 1877 listed, 1877 usable
 amber: 250 listed, 250 usable
@@ -40,7 +40,7 @@ cpe-mascot: 0
 discover: 0
 ea-connect: 0
 evergy: 0
-flipped: 152 listed, 152 usable
+flipped: 192 listed, 192 usable
 flow-power: 360 listed, 360 usable
 future-x: 85 listed, 85 usable
 gee-energy: 108 listed, 108 usable
