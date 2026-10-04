@@ -1,15 +1,15 @@
 {
-  "generated": "2026-10-03T19:41:38.374Z",
+  "generated": "2026-10-04T19:57:22.854Z",
   "source": "AER / Victorian DEECA Energy Product Reference Data (CDR)",
   "partial": false,
-  "elapsedSeconds": 460,
-  "totalPlans": 19385,
+  "elapsedSeconds": 433,
+  "totalPlans": 19393,
   "states": {
     "VIC": 7197,
     "ACT": 852,
     "TAS": 146,
     "SA": 1139,
-    "NSW": 7589,
+    "NSW": 7597,
     "QLD": 2462
   },
   "shards": [

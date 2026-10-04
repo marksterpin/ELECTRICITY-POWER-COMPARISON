@@ -21,7 +21,7 @@ dodo: 140 listed, 140 usable
 momentum: 985 listed, 985 usable
 pacific-blue: 0
 tango: 198 listed, 198 usable
-globird: 497 listed, 497 usable
+globird: 505 listed, 505 usable
 lumo: 185 listed, 185 usable
 red-energy: 1887 listed, 1887 usable
 amber: 255 listed, 255 usable
