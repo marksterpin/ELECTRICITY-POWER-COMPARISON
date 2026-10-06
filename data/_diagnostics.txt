@@ -5,11 +5,11 @@ origin: 3732 listed, 3732 usable
 agl: 1318 listed, 1318 usable
 energyaustralia: 1132 listed, 1132 usable
 engie: 2557 listed, 2557 usable
-alinta: 545 listed, 545 usable
+alinta: 536 listed, 536 usable
 sumo-power: 622 listed, 622 usable
 kogan: 275 listed, 275 usable
 powershop: 502 listed, 502 usable
-actewagl: 227 listed, 227 usable
+actewagl: 225 listed, 225 usable
 diamond: 221 listed, 221 usable
 covau: 477 listed, 477 usable
 next-business: 417 listed, 417 usable
@@ -21,7 +21,7 @@ dodo: 140 listed, 140 usable
 momentum: 985 listed, 985 usable
 pacific-blue: 0
 tango: 198 listed, 198 usable
-globird: 460 listed, 460 usable
+globird: 505 listed, 505 usable
 lumo: 185 listed, 185 usable
 red-energy: 1887 listed, 1887 usable
 amber: 255 listed, 255 usable
