@@ -1,7 +1,7 @@
 arcline: 58 listed, 58 usable
 energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
-origin: 3852 listed, 3852 usable
+origin: 3908 listed, 3908 usable
 agl: 1318 listed, 1318 usable
 energyaustralia: 1160 listed, 1160 usable
 engie: 2557 listed, 2557 usable
@@ -62,7 +62,7 @@ savant: 0
 seene: 0
 shell-energy: 0
 smart-energy: 0
-solstice: 65 listed, 65 usable
+solstice: 66 listed, 66 usable
 stanwell: 0
 telstra-energy: 0
 tesla: 0
