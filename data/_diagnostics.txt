@@ -1,12 +1,12 @@
 arcline: 58 listed, 58 usable
 energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
-origin: 3907 listed, 3907 usable
-agl: 1318 listed, 1318 usable
+origin: 3910 listed, 3910 usable
+agl: 1311 listed, 1311 usable
 energyaustralia: 1160 listed, 1160 usable
 engie: 2557 listed, 2557 usable
 alinta: 536 listed, 536 usable
-sumo-power: 622 listed, 622 usable
+sumo-power: 499 listed, 499 usable
 kogan: 275 listed, 275 usable
 powershop: 502 listed, 502 usable
 actewagl: 225 listed, 225 usable
@@ -17,7 +17,7 @@ next-business: 461 listed, 461 usable
 ovo-energy: 244 listed, 244 usable
 blue-nrg: 1291 listed, 1291 usable
 nectr: 274 listed, 274 usable
-dodo: 154 listed, 154 usable
+dodo: 140 listed, 140 usable
 momentum: 985 listed, 985 usable
 pacific-blue: 0
 tango: 198 listed, 198 usable
