@@ -1,7 +1,7 @@
 arcline: 58 listed, 58 usable
 energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
-origin: 3907 listed, 3907 usable
+origin: 3875 listed, 3875 usable
 agl: 1311 listed, 1311 usable
 energyaustralia: 1160 listed, 1160 usable
 engie: 2557 listed, 2557 usable
@@ -12,7 +12,7 @@ powershop: 502 listed, 502 usable
 actewagl: 223 listed, 223 usable
 diamond: 221 listed, 221 usable
 covau: 441 listed, 441 usable
-next-business: 421 listed, 421 usable
+next-business: 412 listed, 412 usable
 1st-energy: 442 listed, 442 usable
 ovo-energy: 244 listed, 244 usable
 blue-nrg: 1291 listed, 1291 usable
