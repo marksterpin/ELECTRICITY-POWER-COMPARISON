@@ -4,7 +4,7 @@ aurora: 20 listed, 20 usable
 origin: 3877 listed, 3877 usable
 agl: 1311 listed, 1311 usable
 energyaustralia: 1160 listed, 1160 usable
-engie: 2557 listed, 2557 usable
+engie: 3732 listed, 3732 usable
 alinta: 536 listed, 536 usable
 sumo-power: 518 listed, 518 usable
 kogan: 275 listed, 275 usable
@@ -13,7 +13,7 @@ actewagl: 223 listed, 223 usable
 diamond: 221 listed, 221 usable
 covau: 441 listed, 441 usable
 next-business: 412 listed, 412 usable
-1st-energy: 463 listed, 463 usable
+1st-energy: 422 listed, 422 usable
 ovo-energy: 244 listed, 244 usable
 blue-nrg: 1291 listed, 1291 usable
 nectr: 274 listed, 274 usable
@@ -23,7 +23,7 @@ pacific-blue: 0
 tango: 198 listed, 198 usable
 globird: 505 listed, 505 usable
 lumo: 262 listed, 262 usable
-red-energy: 1798 listed, 1798 usable
+red-energy: 1764 listed, 1764 usable
 amber: 255 listed, 255 usable
 ergon: 36 listed, 36 usable
 active-utilities: 0
