@@ -1,7 +1,7 @@
 arcline: 58 listed, 58 usable
 energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
-origin: 3914 listed, 3914 usable
+origin: 3933 listed, 3933 usable
 agl: 1309 listed, 1309 usable
 energyaustralia: 1268 listed, 1268 usable
 engie: 2804 listed, 2804 usable
@@ -18,10 +18,10 @@ ovo-energy: 244 listed, 244 usable
 blue-nrg: 1291 listed, 1291 usable
 nectr: 274 listed, 274 usable
 dodo: 145 listed, 145 usable
-momentum: 985 listed, 985 usable
+momentum: 1001 listed, 1001 usable
 pacific-blue: 0
 tango: 199 listed, 199 usable
-globird: 455 listed, 455 usable
+globird: 465 listed, 465 usable
 lumo: 262 listed, 262 usable
 red-energy: 1798 listed, 1798 usable
 amber: 255 listed, 255 usable
