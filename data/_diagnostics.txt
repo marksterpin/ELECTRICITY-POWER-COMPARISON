@@ -3,7 +3,7 @@ energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
 origin: 3934 listed, 3934 usable
 agl: 1309 listed, 1309 usable
-energyaustralia: 1268 listed, 1268 usable
+energyaustralia: 1292 listed, 1292 usable
 engie: 2804 listed, 2804 usable
 alinta: 549 listed, 549 usable
 sumo-power: 519 listed, 519 usable
@@ -41,7 +41,7 @@ discover: 0
 ea-connect: 0
 evergy: 0
 flipped: 192 listed, 192 usable
-flow-power: 384 listed, 384 usable
+flow-power: 444 listed, 444 usable
 future-x: 85 listed, 85 usable
 gee-energy: 108 listed, 108 usable
 glow-power: 0
