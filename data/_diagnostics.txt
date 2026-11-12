@@ -1,11 +1,11 @@
 arcline: 58 listed, 58 usable
 energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
-origin: 3933 listed, 3933 usable
+origin: 3934 listed, 3934 usable
 agl: 1031 listed, 1031 usable
 energyaustralia: 1340 listed, 1340 usable
 engie: 2846 listed, 2846 usable
-alinta: 622 listed, 622 usable
+alinta: 578 listed, 578 usable
 sumo-power: 519 listed, 519 usable
 kogan: 275 listed, 275 usable
 powershop: 502 listed, 502 usable
