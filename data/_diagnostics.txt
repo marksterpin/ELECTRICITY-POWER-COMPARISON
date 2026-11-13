@@ -1,4 +1,4 @@
-arcline: 58 listed, 58 usable
+arcline: 0
 energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
 origin: 3934 listed, 3934 usable
