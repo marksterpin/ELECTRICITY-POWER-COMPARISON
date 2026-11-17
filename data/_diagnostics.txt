@@ -3,10 +3,10 @@ energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
 origin: 3936 listed, 3936 usable
 agl: 1031 listed, 1031 usable
-energyaustralia: 1340 listed, 1340 usable
+energyaustralia: 1308 listed, 1308 usable
 engie: 2846 listed, 2846 usable
 alinta: 578 listed, 578 usable
-sumo-power: 519 listed, 519 usable
+sumo-power: 537 listed, 537 usable
 kogan: 275 listed, 275 usable
 powershop: 502 listed, 502 usable
 actewagl: 221 listed, 221 usable
@@ -40,7 +40,7 @@ cpe-mascot: 0
 discover: 0
 ea-connect: 0
 evergy: 0
-flipped: 192 listed, 192 usable
+flipped: 202 listed, 202 usable
 flow-power: 444 listed, 444 usable
 future-x: 85 listed, 85 usable
 gee-energy: 108 listed, 108 usable
