@@ -1,11 +1,11 @@
 arcline: 0
 energy-locals: 169 listed, 169 usable
 aurora: 20 listed, 20 usable
-origin: 3909 listed, 3909 usable
+origin: 3934 listed, 3934 usable
 agl: 1097 listed, 1097 usable
 energyaustralia: 1308 listed, 1308 usable
 engie: 2846 listed, 2846 usable
-alinta: 600 listed, 600 usable
+alinta: 666 listed, 666 usable
 sumo-power: 477 listed, 477 usable
 kogan: 275 listed, 275 usable
 powershop: 502 listed, 502 usable
@@ -21,7 +21,7 @@ dodo: 145 listed, 145 usable
 momentum: 1043 listed, 1043 usable
 pacific-blue: 0
 tango: 199 listed, 199 usable
-globird: 545 listed, 545 usable
+globird: 565 listed, 565 usable
 lumo: 262 listed, 262 usable
 red-energy: 1824 listed, 1824 usable
 amber: 255 listed, 255 usable
